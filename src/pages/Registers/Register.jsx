@@ -201,8 +201,9 @@ function Register() {
             </form>
           )}
         </div>
+        <img src={register1} className={styles.registerImage} alt="register" />
       </div>
-      <img src={register1} className={styles.registerImage} alt="register" />
+      
     </div>
   );
 }

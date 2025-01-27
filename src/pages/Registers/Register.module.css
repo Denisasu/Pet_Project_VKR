@@ -31,8 +31,6 @@ body {
     width: 45%;
     height: auto;
     margin-left: 10rem;
-    border: 5px solid #ffffff;
-    border-radius: 75px;
 }
 
 
@@ -40,12 +38,13 @@ body {
     display: flex;
     justify-content: center; /* Центрируем контейнер по горизонтали */
     align-items: center; /* Центрируем контейнер по вертикали */
-    padding: 2rem;
+    
+    border: 5px solid #ffffff;
+    border-radius: 75px;
 }
 
 .registerContent {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     text-align: left;
     width: 70%; /* Ширина контейнера для формы */
