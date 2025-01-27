@@ -80,75 +80,42 @@ function Home() {
                             </button>
                         </div>
                     </div>
+                </div>
+
+                {/* Страница 3 - "Актуальность" с прокруткой */}
+                <div className="actuality-container" id="actuality-container">
+                    <div className="actuality-header">
+                        <h1>Актуальность</h1>
                     </div>
+                    <div className="actual-sliders">
+                        <div className="actual-sliders-item">
+
+                        </div>
+                    </div>
+                    
+                </div>
+
+                {/* Страница 3 - "Актуальность" с прокруткой */}
+                <div className="stages-container" id="stages-container">
+                    <div className="stages-header">
+                        <h1>Этапы</h1>
+                    </div>
+                    <div className="stages-items">
+                        <div className="stage_1">
+                            <div className="stage_1_text">
+                                <h2>01</h2>
+                            </div>
+                            <div className="stage_1_items">
+                                <h3>Подача заявки</h3>
+                                <p>Подайте заявку на участие в проекте</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+
             </Container>
-
-                
-
-                {/* Актуальность (закомментировано) */}
-                {/*
-                <section>
-                    <div className="aktual">
-                        <h2>Актуальность</h2>
-                        <div className="aktall">
-                            <div className="akt1">
-                                <h3>Чистота</h3>
-                                <p>Берегите природу, оставляйте за собой чистоту</p>
-                                <img src={act1} alt="Чистота" width={300} />
-                            </div>
-
-                            <div className="akt2">
-                                <h3>Вместе</h3>
-                                <p>Масса людей наша сила</p>
-                                <img src={act2} alt="Чистота" width={300} />
-                            </div>
-
-                            <div className="akt3">
-                                <h3>Оздоровление</h3>
-                                <p>Обеспечение благоприятных условий</p>
-                                <img src={act3} alt="Чистота" width={300} />
-                            </div>
-
-                            <div className="akt4">
-                                <h3>Будущее</h3>
-                                <p>Спасая природу, мы спасаем себя и наши будущие поколения</p>
-                                <img src={act4} alt="Чистота" width={300} />
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                */}
-
-                {/* Инструкции по очищению природы */}
-                {/*
-                <section>
-                    <div className="inform">
-                        <h2>Как начать очищать природу</h2>
-                        <div className="infblock">
-                            <div className="inf1">
-                                <div className='inf1-one'>1</div>
-                                <p>Перейти на страницу заполнения заявки по кнопке &quot;Очистить природу&quot;</p>
-                            </div>
-
-                            <div className="inf2">
-                                <div className='inf2-one'>2</div>
-                                <p>Сделать фотографию загрязненной местности и прикрепить ее в Вашу Заявку</p>
-                            </div>
-
-                            <div className="inf3">
-                                <div className='inf3-one'>3</div>
-                                <p>Ввести номер телефона и дать разрешение на получение Вашей геолокации</p>
-                            </div>
-
-                            <div className="inf4">
-                                <div className='inf4-one'>4</div>
-                                <p>Опишите загрязненную местность и смело нажимайте кнопку &quot;Отправить заявку&quot;</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                */}
-            
         </>
     );
 }
