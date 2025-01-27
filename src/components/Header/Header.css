@@ -1,0 +1,162 @@
+/* Основные стили для хедера */
+.navbar {
+  background-color: #0A7075;
+  color: #D0D0D0;
+  height: 45px;
+  padding: 0 10px;
+}
+.navbar-custom {
+  background-color: #0A7075; /* Цвет шапки */
+  color: #D0D0D0; /* Цвет текста */
+  height: 60px; /* Высота шапки */
+  padding: 0 20px; /* Отступы по бокам */
+  border-radius: 30px; /* Закругление краев */
+  width: 1250px;
+  margin: 15px auto; /* Центрирование контейнера */
+  display: flex;
+  align-items: center; /* Центрирование элементов по вертикали */
+  justify-content: space-between; /* Равномерное распределение элементов */
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #ffffff;
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.navbar-brand img {
+  height: 40px;
+  width: 40px;
+}
+
+.navbar-nav {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-link {
+  color: #000000;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+
+/* Навигация для десктопа */
+.desktop-nav {
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.desktop-nav .nav-link {
+  color: #ffffff;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.desktop-nav .nav-link:hover {
+  color: #d0d0d0;
+}
+
+.nav-link:hover {
+  color: #d0d0d0;
+}
+
+img[alt="UserLogo"] {
+  cursor: pointer;
+  margin-left: 15px;
+  height: 30px;
+  width: 30px;
+}
+
+.close-button{
+  background-color:  #0A7075;;
+}
+
+
+/* Стиль для контейнера меню */
+.menu-container {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  width: 100%;
+}
+
+.menu {
+  display: none; /* Меню скрыто по умолчанию */
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100%;
+  background-color:  #0A7075;;
+  color: #fff;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 50px;
+  transition: transform 0.3s ease; /* Плавная анимация */
+}
+
+.menu.open {
+  display: flex;
+  transform: translateX(0); /* Включаем меню */
+  align-items: flex-end;
+}
+
+.menu-exit{
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.menu-item {
+  padding: 15px;
+  font-size: 18px;
+  text-align: left;
+}
+
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.menu-icon div {
+  background-color: #fff;
+  height: 3px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.menu-icon.open div:nth-child(1) {
+  transform: rotate(45deg);
+  position: relative;
+  top: 7px;
+}
+
+.menu-icon.open div:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-icon.open div:nth-child(3) {
+  transform: rotate(-45deg);
+  position: relative;
+  top: -7px;
+}
+
+/* Элементы меню */
+.menu .nav-link {
+  color: #fff;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.menu .nav-link:hover {
+  color: #d0d0d0;
+}
+
+.close-button{
+  color: #fff;
+}
+

@@ -1,0 +1,28 @@
+/* index.css */
+
+html, body{
+  height: 100%;
+}
+
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set default font and background color */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #3EB8BD;
+  color: #ffffff;
+}
+
+/* Container for the main content */
+.container {
+  width: 1250px;
+  margin: 0;
+}
+
+/* Header styles */
+/*  */
