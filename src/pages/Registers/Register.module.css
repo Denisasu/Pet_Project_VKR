@@ -5,59 +5,58 @@
     box-sizing: border-box;
 }
 
+* {
+    font-family: 'Montserrat Alternates', sans-serif;
+  }  
+
 body {
-    font-family: 'Poppins', sans-serif;
-    overflow: hidden;
+    display: flex;  /* Включаем flexbox для body */
+    justify-content: center;  /* Центрируем по горизонтали */
+    align-items: center;  /* Центрируем по вертикали */
+    height: 100vh;  /* Высота страницы на весь экран */
+    margin: 0;  /* Убираем стандартные отступы */
+    font-family: 'Montserrat Alternates', sans-serif;
 }
 
-.wave {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    height: 100%;
-    opacity: 0.5;
+.registerContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 0;
 }
+
+.registerImage {
+    width: 45%;
+    height: auto;
+    margin-left: 10rem;
+    border: 5px solid #ffffff;
+    border-radius: 75px;
+}
+
 
 .container {
-    width: 100vw;
-    height: 100vh;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 20rem;
-    padding: 0 2rem;
-}
-
-.img {
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    justify-content: center; /* Центрируем контейнер по горизонтали */
+    align-items: center; /* Центрируем контейнер по вертикали */
+    padding: 2rem;
 }
 
 .registerContent {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
-}
-
-.img img {
-    width: 700px;
-    z-index: 2;
-}
-
-form {
-    width: 360px;
-}
-
-form img {
-    width: 100px;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    width: 70%; /* Ширина контейнера для формы */
 }
 
 .registerContent h2 {
     margin: 15px 0;
-    color: #333;
+    color: #ffffff;
     font-weight: 700;
-    font-size: 2.9rem;
+    font-size: 3.3rem;
+    margin-left: -40px;
 }
 
 .inputDiv {
@@ -66,7 +65,7 @@ form img {
     grid-template-columns: 7% 93%;
     margin: 25px 0;
     padding: 5px 0;
-    border-bottom: 2px solid #d9d9d9;
+    border-bottom: 2px solid #ffffff;
 }
 
 .inputDiv.one {
@@ -74,7 +73,7 @@ form img {
 }
 
 .i {
-    color: #d9d9d9;
+    color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,15 +85,15 @@ form img {
 
 .inputWrapper {
     position: relative;
-    height: 45px;
+    height: 60px;
 }
 
 .inputWrapper h5 {
     position: absolute;
     left: 10px;
-    top: 50%;
+    top: 55%;
     transform: translateY(-50%);
-    color: #999;
+    color: #ffffff;
     font-size: 18px;
     transition: .3s;
     pointer-events: none;
@@ -104,13 +103,13 @@ form img {
 .inputDiv input:focus + .inputWrapper h5 {
     top: -20px;
     font-size: 15px;
-    color: #38d39f;
+    color: #0A7075;
     z-index: 2;
 }
 
 .inputDiv input:valid,
 .inputDiv input:not(:placeholder-shown) {
-    border-bottom: 2px solid #38d39f;
+    border-bottom: 2px solid #0A7075;
 }
 
 .inputDiv:before,
@@ -120,7 +119,7 @@ form img {
     bottom: -2px;
     width: 0%;
     height: 2px;
-    background-color: #38d39f;
+    background-color: #0A7075;
     transition: .4s;
 }
 
@@ -138,19 +137,19 @@ form img {
 }
 
 .inputDiv.focus .inputWrapper h5 {
-    top: -20px;
+    top: -10px;
     font-size: 15px;
-    color: #38d39f;
+    color: #0A7075;
     z-index: 2;
 }
 
 .inputDiv.focus .i i {
-    color: #38d39f;
+    color: #0A7075;
 }
 
 .inputDiv input:valid,
 .inputDiv.focus input {
-    border-bottom: 2px solid #38d39f;
+    border-bottom: 2px solid #0A7075;
 }
 
 .inputDiv .inputWrapper input {
@@ -161,64 +160,13 @@ form img {
     outline: none;
     background: none;
     padding: 0.5rem 0.7rem;
-    font-size: 1.2rem;
-    color: #555;
-    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    color: #ffffff;
     z-index: 0;
 }
 
 .inputDiv.pass {
-    margin-bottom: 4px;
-}
-
-/* Стили для чекбокса */
-.checkboxWrapper input[type="checkbox"] {
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border: 2px solid #d9d9d9;
-    border-radius: 3px;
-    background-color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
-    margin-right: 8px;
-}
-
-.checkboxWrapper input[type="checkbox"]:checked {
-    background-color: #38d39f;
-    border-color: #38d39f;
-    position: relative;
-}
-
-.checkboxWrapper input[type="checkbox"]:checked::after {
-    content: '\2713';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 12px;
-    color: #fff;
-}
-
-.checkboxWrapper {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.checkboxWrapper input {
-    margin-right: 5px;
-}
-
-.checkboxWrapper label {
-    color: #999;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.checkboxWrapper label:hover {
-    color: #38d39f;
+    margin-bottom: 3px;
 }
 
 /* Стили для кнопок и ссылки на регистрацию */
@@ -235,11 +183,10 @@ form img {
     border-radius: 25px;
     outline: none;
     border: none;
-    background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+    background-image: linear-gradient(to right, #0A7075, #0f8086, #18abb3);
     background-size: 200%;
     font-size: 1.2rem;
     color: #fff;
-    font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
     margin: 1rem 0;
     cursor: pointer;
@@ -251,7 +198,7 @@ form img {
 }
 
 .registerLink {
-    color: #999;
+    color: #ffffff;
     font-size: 0.9rem;
     margin-top: 10px;
     cursor: pointer;
@@ -259,92 +206,15 @@ form img {
 }
 
 .registerLink:hover {
-    color: #38d39f;
+    color: #0A7075;
 }
 
 .registerLink span {
-    color: #38d39f;
+    color: #0A7075;
     font-weight: bold;
     text-decoration: underline;
 }
 
 .registerLink span:hover {
-    color: #32be8f;
-}
-
-/* Адаптивность */
-@media screen and (max-width: 1050px) {
-    .container {
-        grid-gap: 5rem;
-    }
-}
-
-@media screen and (max-width: 1000px) {
-    form {
-        width: 290px;
-    }
-
-    .registerContent h2 {
-        font-size: 2.4rem;
-        margin: 8px 0;
-    }
-
-    .img img {
-        width: 400px;
-    }
-}
-
-@media screen and (max-width: 900px) {
-    .container {
-        grid-template-columns: 1fr;
-    }
-
-    .img {
-        display: none;
-    }
-
-    .wave {
-        display: none;
-    }
-
-    .registerContent {
-        justify-content: center;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    
-    body {
-        overflow: hidden; /* Запрещаем скроллинг */
-    }
-
-    .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
-        padding: 0;
-    }
-    
-    .registerContent h2 {
-        margin: 15px 0;
-        color: #333;
-        font-weight: 700;
-        font-size: 2rem !important;
-    }
-
-    .registerContent {
-        margin-top: 50px; /* Снимаем любое смещение вверх */
-        height: auto; /* Убираем фиксированную высоту */
-        align-items: center; /* Центрируем содержимое */
-    }
-
-    form {
-        width: 90%; /* Форма занимает 90% ширины */
-        max-width: 390px; /* Ограничиваем максимальную ширину формы */
-        margin: 0 auto; /* Центрируем форму */
-    }
+    color: #0A7075;
 }

@@ -3,35 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './Register.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import avatar from '../../imgs/login/avatar.svg';
-import wave from '../../imgs/login/wave.png';
-import bg from '../../imgs/login/bg.svg';
+import register1 from '../../imgs/register/register1.png';
 
 function Register() {
   const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmationCode, setConfirmationCode] = useState('');
-  const [isCodeSent, setIsCodeSent] = useState(false); // флаг для отслеживания отправки кода
-  const [isCodeConfirmed, setIsCodeConfirmed] = useState(false); // флаг для отслеживания подтверждения кода
+  const [isCodeSent, setIsCodeSent] = useState(false);
+  const [isCodeConfirmed, setIsCodeConfirmed] = useState(false);
   const [focused, setFocused] = useState({});
-  const [baseUrl, setBaseUrl] = useState('');
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // Логика для установки правильного baseUrl
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isAndroid = /android/.test(userAgent); // Проверка на Android
-  
-    if (isAndroid) {
-      setBaseUrl('http://192.168.31.128:8000'); // Для мобильного устройства
-    } else {
-      setBaseUrl('http://localhost:8000'); // Для веб-приложения
-    }
-  
-  }, []);
 
   const handleFocus = (field) => {
     setFocused((prevState) => ({ ...prevState, [field]: true }));
@@ -43,17 +26,15 @@ function Register() {
     }
   };
 
-  // Функция для отправки кода подтверждения
   const sendCode = async () => {
     if (!email) {
       alert('Введите email');
       return;
     }
-
     try {
       const response = await axios.post(`${baseUrl}/send-verification-code/`, { email });
       if (response.status === 200) {
-        setIsCodeSent(true); // Устанавливаем флаг, что код был отправлен
+        setIsCodeSent(true);
         alert('Код отправлен на ваш email');
       }
     } catch (error) {
@@ -62,44 +43,30 @@ function Register() {
     }
   };
 
-  // Функция для проверки введенного кода
   const verifyCode = async () => {
-    if (confirmationCode === '') {
+    if (!confirmationCode) {
       alert('Введите код подтверждения');
       return;
     }
-
-    // Здесь можно добавить логику для проверки кода на сервере (если необходимо)
-    // Если код подтвержден успешно
     setIsCodeConfirmed(true);
     alert('Код подтвержден!');
   };
 
-  // Функция для завершения регистрации
   const handleRegister = async () => {
-    if (!firstName || !lastName || !email || !password || password !== confirmPassword) {
+    if (!firstName || !email || !password || password !== confirmPassword) {
       alert('Пожалуйста, заполните все поля корректно');
       return;
     }
-
     try {
       const response = await axios.post(`${baseUrl}/register/`, {
         first_name: firstName,
-        last_name: lastName,
         email,
         password,
       });
-
       if (response.status === 200) {
-        // Сохраняем данные пользователя в localStorage
-        const userData = {
-          firstName,
-          lastName,
-          email,
-      };
-        localStorage.setItem('user', JSON.stringify(userData)); // Сохраняем в localStorage
+        localStorage.setItem('user', JSON.stringify({ firstName, email }));
         alert('Регистрация завершена!');
-        navigate('/login'); // Перенаправление на страницу входа
+        navigate('/login');
       }
     } catch (error) {
       console.error('Ошибка регистрации:', error);
@@ -109,20 +76,11 @@ function Register() {
 
   return (
     <div className={styles.registerContainer}>
-      <img src={wave} className={styles.wave} alt="wave" />
       <div className={styles.container}>
-        <div className={styles.img}>
-          <img src={bg} alt="background" />
-        </div>
         <div className={styles.registerContent}>
           {!isCodeSent ? (
-            // Форма для ввода данных пользователя
             <form>
-              <div className={styles.avatarWrapper}>
-                <img src={avatar} alt="avatar" className={styles.avatar} />
-              </div>
-              <h2 className={styles.title}>Регистрация</h2>
-
+              <h2 className={styles.title}>Присоединяйся</h2>
               <div className={`${styles.inputDiv} ${focused.firstName ? styles.focus : ''}`}>
                 <div className={styles.i}>
                   <i className="fas fa-user"></i>
@@ -136,24 +94,6 @@ function Register() {
                     onChange={(e) => setFirstName(e.target.value)}
                     onFocus={() => handleFocus('firstName')}
                     onBlur={(e) => handleBlur('firstName', e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className={`${styles.inputDiv} ${focused.lastName ? styles.focus : ''}`}>
-                <div className={styles.i}>
-                  <i className="fas fa-user"></i>
-                </div>
-                <div className={styles.inputWrapper}>
-                  <h5>Фамилия</h5>
-                  <input
-                    type="text"
-                    className={styles.input}
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    onFocus={() => handleFocus('lastName')}
-                    onBlur={(e) => handleBlur('lastName', e.target.value)}
                     required
                   />
                 </div>
@@ -216,17 +156,13 @@ function Register() {
               <button
                 type="button"
                 className={styles.btn}
-                onClick={sendCode}  // Отправка кода при регистрации
+                onClick={sendCode}
               >
-                Отправить код
+                Регистрация
               </button>
             </form>
           ) : (
-            // Форма для подтверждения кода
             <form>
-              <div className={styles.avatarWrapper}>
-                <img src={avatar} alt="avatar" className={styles.avatar} />
-              </div>
               <h2 className={styles.title}>Подтверждение почты</h2>
               <div className={`${styles.inputDiv} ${focused.confirmationCode ? styles.focus : ''}`}>
                 <div className={styles.i}>
@@ -249,7 +185,7 @@ function Register() {
               <button
                 type="button"
                 className={styles.btn}
-                onClick={verifyCode}  // Проверка кода
+                onClick={verifyCode}
               >
                 Подтвердить
               </button>
@@ -257,7 +193,7 @@ function Register() {
                 <button
                   type="button"
                   className={styles.btn}
-                  onClick={handleRegister}  // Завершение регистрации
+                  onClick={handleRegister}
                 >
                   Зарегистрироваться
                 </button>
@@ -266,6 +202,7 @@ function Register() {
           )}
         </div>
       </div>
+      <img src={register1} className={styles.registerImage} alt="register" />
     </div>
   );
 }
