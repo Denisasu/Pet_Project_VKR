@@ -49,8 +49,8 @@ function Header() {
           <Nav className="desktop-nav">
             <Nav.Link onClick={() => scrollToSection('secone')}>Главная</Nav.Link>
             <Nav.Link onClick={() => scrollToSection('project-container')}>О проекте</Nav.Link>
-            <Nav.Link onClick={() => scrollToSection('relevance')}>Актуальность</Nav.Link>
-            <Nav.Link onClick={() => scrollToSection('steps')}>Этапы</Nav.Link>
+            <Nav.Link onClick={() => scrollToSection('actuality-container')}>Актуальность</Nav.Link>
+            <Nav.Link onClick={() => scrollToSection('stages-container')}>Этапы</Nav.Link>
           </Nav>
 
           <div className="menu-icon" onClick={toggleMenu}>
@@ -63,7 +63,6 @@ function Header() {
               <Nav.Link as={Link} to="/statistics" onClick={closeMenu}>Статистика</Nav.Link>
               <Nav.Link as={Link} to="/contacts" onClick={closeMenu}>Контакты</Nav.Link>
               <Nav.Link as={Link} to="/analyze" onClick={closeMenu}>Анализ</Nav.Link>
-              <Nav.Link as={Link} to="/zayvka" onClick={closeMenu}>Заявка</Nav.Link>
               <Nav.Link as={Link} to="/login" onClick={closeMenu}>Личный кабинет</Nav.Link>
             </Nav>
           </div>

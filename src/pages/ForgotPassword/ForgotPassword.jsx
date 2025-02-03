@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './ForgotPassword.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import avatar from '../../imgs/login/avatar.svg';
+import avatar from '../../imgs/login/avatar.png';
 import wave from '../../imgs/login/wave.png';
-import bg from '../../imgs/login/bg.svg';
+import bg from '../../imgs/login/bg.png';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -15,7 +15,6 @@ function ForgotPassword() {
   const [isCodeSent, setIsCodeSent] = useState(false); // Для отображения полей пароля
   const [focused, setFocused] = useState({});
   const navigate = useNavigate();
-  const [baseUrl, setBaseUrl] = useState('');
 
   const handleFocus = (field) => {
     setFocused((prevState) => ({ ...prevState, [field]: true }));
@@ -27,18 +26,7 @@ function ForgotPassword() {
     }
   };
 
-  useEffect(() => {
-    // Логика для установки правильного baseUrl
-    const userAgent = navigator.userAgent.toLowerCase(); 
-    const isAndroid = /android/.test(userAgent); // Проверка на Android
-
-    if (isAndroid) {
-      setBaseUrl('http://192.168.31.128:8000'); // Для мобильного устройства
-    } else {
-      setBaseUrl('http://localhost:8000'); // Для веб-приложения
-    }
-
-  }, []); // Вызывается только при монтировании компонента
+ 
 
   const sendCode = async () => {
     if (!email) {
@@ -46,7 +34,7 @@ function ForgotPassword() {
         return;
     }
     try {
-        const response = await axios.post('${baseUrl}/send-verification-code/', { email });
+        const response = await axios.post('http://localhost:8000/send-verification-code/', { email });
         if (response.status === 200) {
             setIsCodeSent(true);
             alert('Код отправлен на email');
@@ -64,7 +52,7 @@ function ForgotPassword() {
     }
 
     try {
-        const response = await axios.post('${baseUrl}/reset-password/', {
+        const response = await axios.post('http://localhost:8000/reset-password/', {
             email,
             code,
             new_password: newPassword

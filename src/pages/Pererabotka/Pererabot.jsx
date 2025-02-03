@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Image, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import styles from "./Pererabot.module.css";
-import ellipse from '../../imgs/pererabot/ellipse.svg';
-import star from '../../imgs/pererabot/star.svg';
 
 function Pererabot() {
   const [image, setImage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [classificationResult, setClassificationResult] = useState(null);
-  const [baseUrl, setBaseUrl] = useState('http://localhost:8000');
+
 
   // Адреса для переработки в зависимости от класса
   const recyclingAddresses = {
@@ -45,18 +43,7 @@ function Pererabot() {
     ]
   };
 
-  useEffect(() => {
-    // Логика для установки правильного baseUrl
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isAndroid = /android/.test(userAgent); // Проверка на Android
-  
-    if (isAndroid) {
-      setBaseUrl('http://192.168.31.128:8000'); // Для мобильного устройства
-    } else {
-      setBaseUrl('http://localhost:8000'); // Для веб-приложения
-    }
-  
-  }, []);
+
   
   // Перевод классов с английского на русский
   const translateClass = (classificationClass) => {
@@ -85,7 +72,7 @@ function Pererabot() {
     formData.append("file", image);
   
     try {
-      const response = await axios.post(`${baseUrl}/classify/`, formData, {
+      const response = await axios.post(`http://localhost:8000/classify/`, formData, {
         headers: {"Content-Type": "multipart/form-data"},
       });
       console.log("Классификация завершена:", response.data);
@@ -119,23 +106,15 @@ function Pererabot() {
     <div className={styles.container}>
       <div className={styles.pererabotContent}>
         <form onSubmit={handleSubmit} encType="multipart/form-data">
-          <h2 className={styles.title}>Классификация отходов</h2>
+          <h2 className={styles.title}>Переработка</h2>
 
           <div className={styles.inputDiv}>
             <label htmlFor="fileInput" className={styles.fileLabel}>
               <div className={styles.icon}>
-                <i className="fas fa-camera"></i>
+                <i className="fas fa-camera"></i> {/* Здесь иконка фотоаппарата */}
               </div>
-              <h5>Фото</h5>
-              <input
-                id="fileInput"
-                type="file"
-                onChange={handleImageChange}
-                className={styles.input}
-                capture="camera"
-                accept="image/*"
-                //style={{ display: "none" }} // Скрываем сам input
-              />
+              Загрузить изображение
+              <input id="fileInput" type="file"/>
             </label>
           </div>
 
@@ -148,7 +127,7 @@ function Pererabot() {
           <div className={styles.buttonsWrapper}>
             <button
               type="submit"
-              className={styles.submitButton}
+              className={styles.btn}
               disabled={isSubmitting || !image}
             >
               {isSubmitting ? "Анализ..." : "Классифицировать"}
@@ -174,10 +153,6 @@ function Pererabot() {
         )}
       </div>
     </div>
-
-    {/* Добавление изображений */}
-    <img src={ellipse} alt="ellipse" className={styles.ellipse} />
-    <img src={star} alt="star" className={styles.star} />
   </div>
 );
 }

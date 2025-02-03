@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Form, Image, Alert } from 'react-bootstrap';
-import avatar from '../../imgs/login/avatar.svg';
+import avatar from '../../imgs/login/avatar.png';
 import wave from '../../imgs/login/wave.png';
-import bg from '../../imgs/login/bg.svg';
+import bg from '../../imgs/login/bg.png';
 import styles from './Zayvka.module.css';
 
 function Zayvka() {
@@ -15,7 +15,6 @@ function Zayvka() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [focused, setFocused] = useState({});
-    const [baseUrl, setBaseUrl] = useState('');
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -25,18 +24,7 @@ function Zayvka() {
         });
     }, []);
 
-    useEffect(() => {
-        // Логика для установки правильного baseUrl
-        const userAgent = navigator.userAgent.toLowerCase();
-        const isAndroid = /android/.test(userAgent); // Проверка на Android
-      
-        if (isAndroid) {
-          setBaseUrl('http://192.168.31.128:8000'); // Для мобильного устройства
-        } else {
-          setBaseUrl('http://localhost:8000'); // Для веб-приложения
-        }
-      
-      }, []);
+   
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -62,7 +50,7 @@ function Zayvka() {
             };
 
             try {
-                const response = await axios.post('${baseUrl}/applications/', applicationData, {
+                const response = await axios.post('http://localhost:8000/applications/', applicationData, {
                     headers: {
                         'Content-Type': 'application/json',
                     },

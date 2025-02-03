@@ -28,7 +28,7 @@
 
 .cropping-popup button {
   background-color: #007bff;
-  color: white;
+  color: 0A7075;
   border: none;
   padding: 10px 20px;
   margin-top: 20px;
@@ -78,7 +78,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   display: inline-block; /* Кнопки не растягиваются по ширине */
-  width: 190px; /* Размер кнопки зависит от текста */
+  width: 250px; /* Размер кнопки зависит от текста */
   text-align: center; /* Текст по центру */
 }
 
@@ -89,40 +89,81 @@
 
 /* Индивидуальные стили кнопок */
 .edit-btn {
-  background-color: #38d39f;
+  background-color: #0A7075;
   color: white;
 }
 
 .edit-btn:hover {
-  background-color: #38d39f;
+  background-color: #0A7075;
 }
 
 .save-btn {
-  background-color: #38d39f;
+  background-color: #0A7075;
   color: white;
 }
 
 .save-btn:hover {
-  background-color: #38d39f;
+  background-color: #0A7075;
 }
 
 .cancel-btn {
-  background-color: #38d39f;
+  background-color: #0A7075;
   color: white;
 }
 
 .cancel-btn:hover {
-  background-color: #38d39f;
+  background-color: #0A7075;
 }
 
 .logout-btn {
-  background-color: #38d39f;
+  background-color: #0A7075;
   color: white;
 }
 
 .logout-btn:hover {
-  background-color: #38d39f;
+  background-color: #0A7075;
 }
+
+/* Контейнер для колонок (пользовательская информация и заявки) */
+.columns-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px; /* Расстояние между колонками */
+  width: 100%;
+}
+
+/* Контейнер для кнопки под правым столбцом */
+.apply-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 140px;
+}
+
+/* Кнопка "Подать заявку" */
+.apply-btn {
+  padding: 6px 12px; /* Компактные внутренние отступы */
+  font-size: 14px; /* Уменьшенный размер текста */
+  border: none;
+  border-radius: 25px; /* Лёгкое закругление */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block; /* Кнопки не растягиваются по ширине */
+  width: 200px; /* Размер кнопки зависит от текста */
+  text-align: center; /* Текст по центру */
+  background-color: #0A7075;
+}
+
+.apply-btn {
+  background-color: #0A7075;
+  color: white;
+}
+
+.apply-btn:hover {
+  background-color: #0A7075;
+  transform: scale(1.05);
+}
+
+
 
 /* Контейнер для кнопок */
 .user-actions {
@@ -141,6 +182,7 @@
   justify-content: space-between;
   gap: 60px;
   padding: 40px;
+  margin-top: 80px;
 }
 
 /* Левая колонка (таблица заявок) */
@@ -149,10 +191,10 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  border: 1px solid #ddd;
   border-radius: 12px;
-  background-color: #ffffff;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: rgba(10, 112, 117, 0.49);
+  width: 900px; 
+  height: auto; /* Убираем ограничение по высоте */
 }
 
 /* Заголовок таблицы */
@@ -169,15 +211,14 @@
   border-collapse: collapse; /* Убирает двойные линии между ячейками */
   text-align: left;
   font-size: 14px;
-  background-color: #ffffff;
+  background-color: #1A797F;
   border-radius: 10px;
   overflow: hidden; /* Для закругления углов таблицы */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Заголовки таблицы */
 .applications-table th {
-  background-color: #38d39f;
+  background-color: #0A7075;
   color: white;
   padding: 12px;
   text-transform: uppercase;
@@ -187,7 +228,7 @@
 /* Ячейки таблицы */
 .applications-table td {
   padding: 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #1A797F;
 }
 
 /* Последняя строка таблицы (без границы) */
@@ -195,30 +236,22 @@
   border-bottom: none;
 }
 
-/* Чередование цвета строк */
-.applications-table tr:nth-child(odd) {
-  background-color: #f3f3f3;
-}
 
 .applications-table tr:nth-child(even) {
-  background-color: #ffffff;
-}
-
-/* Ховер эффект для строк таблицы */
-.applications-table tr:hover {
-  background-color: #eafaf1;
+  background-color: #0A7075;
 }
 
 /* Правая колонка (пользовательская информация) */
 .right-column {
   flex: none; /* Отменяем растягивание контейнера */
-  width: 500px; /* Устанавливаем фиксированную ширину */
+  width: 600px; /* Устанавливаем фиксированную ширину */
   padding: 15px; /* Уменьшаем внутренние отступы */
-  border: 1px solid #ddd;
   border-radius: 12px;
-  background-color: #ffffff;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  height: 350px;
+  background-color: rgba(10, 112, 117, 0.49);
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  
 }
 
 /* Стиль для полей ввода в режиме редактирования */
@@ -236,21 +269,6 @@
 /* При фокусе на поле (когда оно активно) */
 .edit-form input:focus {
   background-color: #e6e6e6; /* Немного темнее фон при фокусе */
-  border-color: #38d39f; /* Зеленая рамка при фокусе */
+  border-color: #0A7075; /* Зеленая рамка при фокусе */
   outline: none; /* Убираем стандартный фокус */
 }
-
-
-
-/* Адаптивное поведение */
-@media (max-width: 768px) {
-  .personal-acc-container {
-    flex-direction: column;
-  }
-  .left-column,
-  .right-column {
-    flex: none;
-    margin-bottom: 20px;
-  }
-}
-

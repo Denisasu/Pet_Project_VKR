@@ -5,13 +5,17 @@
     box-sizing: border-box;
 }
 
+* {
+    font-family: 'Montserrat Alternates', sans-serif;
+  }  
+
 body {
-    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     overflow: hidden; /* Убираем скроллинг */
     width: 100vw;
     height: 100vh; /* Фиксируем высоту */
+    font-family: 'Montserrat Alternates', sans-serif;
 }
 
 
@@ -21,7 +25,7 @@ body {
     left: 0;
     height: 100%;
     opacity: 0.5;
-    z-index: 1;
+    z-index: -1;
 }
 
 .container {
@@ -66,7 +70,7 @@ form img {
 
 .loginContent h2 {
     margin: 15px 0;
-    color: #333;
+    color: #ffffff;
     font-weight: 700;
     font-size: 2.9rem;
 }
@@ -77,7 +81,7 @@ form img {
     grid-template-columns: 7% 93%;
     margin: 25px 0;
     padding: 5px 0;
-    border-bottom: 2px solid #d9d9d9;
+    border-bottom: 2px solid #ffffff;
 }
 
 .inputDiv.one {
@@ -85,7 +89,7 @@ form img {
 }
 
 .i {
-    color: #d9d9d9;
+    color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -105,7 +109,7 @@ form img {
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    color: #999;
+    color: #ffffff;
     font-size: 18px;
     transition: .3s;
 }
@@ -117,7 +121,7 @@ form img {
     bottom: -2px;
     width: 0%;
     height: 2px;
-    background-color: #38d39f;
+    background-color: #0A7075;
     transition: .4s;
 }
 
@@ -137,11 +141,11 @@ form img {
 .inputDiv.focus .inputWrapper h5 {
     top: -5px;
     font-size: 15px;
-    color: #38d39f;
+    color: #0A7075;
 }
 
 .inputDiv.focus .i i {
-    color: #38d39f;
+    color: #0A7075;
 }
 
 .inputDiv .inputWrapper input {
@@ -155,8 +159,7 @@ form img {
     background: none;
     padding: 0.5rem 0.7rem;
     font-size: 1.2rem;
-    color: #555;
-    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
 }
 
 .inputDiv.pass {
@@ -169,7 +172,7 @@ form img {
     appearance: none;
     width: 16px;
     height: 16px;
-    border: 2px solid #d9d9d9;
+    border: 2px solid #ffffff;
     border-radius: 3px;
     background-color: #fff;
     cursor: pointer;
@@ -177,8 +180,8 @@ form img {
 }
 
 .checkboxWrapper input[type="checkbox"]:checked {
-    background-color: #38d39f;
-    border-color: #38d39f;
+    background-color: #0A7075;
+    border-color: #0A7075;
     position: relative;
 }
 
@@ -209,27 +212,14 @@ form img {
 }
 
 .checkboxWrapper label {
-    color: #999;
+    color: #ffffff;
     font-size: 0.9rem;
     cursor: pointer;
     transition: .3s;
 }
 
 .checkboxWrapper label:hover {
-    color: #38d39f;
-}
-
-a {
-    display: block;
-    text-align: right;
-    text-decoration: none;
-    color: #999;
-    font-size: 0.9rem;
-    transition: .3s;
-}
-
-a:hover {
-    color: #38d39f;
+    color: #0A7075;
 }
 
 /* Стили для кнопок и ссылки на регистрацию */
@@ -246,11 +236,10 @@ a:hover {
     border-radius: 25px;
     outline: none;
     border: none;
-    background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+    background-image: linear-gradient(to right, #0A7075, #0f8086, #18abb3);
     background-size: 200%;
     font-size: 1.2rem;
     color: #fff;
-    font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
     margin: 1rem 0;
     cursor: pointer;
@@ -261,104 +250,30 @@ a:hover {
     background-position: right;
 }
 
+.optionsWrapper a {
+    color: #0A7075;
+    font-weight: bold;
+}
+
+.optionsWrapper a:hover {
+    color: #0A7075; /* Устанавливаем такой же цвет, чтобы не было изменения */
+    text-decoration: none; /* Убираем подчёркивание при ховере */
+}
+
 .registerLink {
-    color: #999;
+    color: #ffffff;
     font-size: 0.9rem;
     margin-top: 10px;
+    font-weight: bold;
     cursor: pointer;
 }
 
 .registerLink span {
-    color: #38d39f;
+    color: #0A7075;
     font-weight: bold;
     text-decoration: underline;
 }
 
 .registerLink span:hover {
-    color: #32be8f;
-}
-
-/* Адаптивность */
-@media screen and (max-width: 1050px) {
-    .container {
-        grid-gap: 5rem;
-    }
-}
-
-@media screen and (max-width: 1000px) {
-    form {
-        width: 290px;
-    }
-
-    .loginContent h2 {
-        font-size: 2.4rem;
-        margin: 8px 0;
-    }
-
-    .img img {
-        width: 400px;
-    }
-
-    
-}
-
-@media screen and (max-width: 900px) {
-    .container {
-        grid-template-columns: 1fr;
-        grid-gap: 2rem; /* Уменьшаем промежутки */
-        padding: 0 1rem; /* Уменьшаем отступы */
-        height: 100vh; /* Ограничиваем высоту */
-        display: flex;
-        justify-content: center;
-        align-items: center; /* Центрируем содержимое по вертикали */
-    }
-
-    .img {
-        display: none; /* Скрыть изображение на мобильных устройствах */
-    }
-
-    .wave {
-        display: none;
-    }
-
-    .loginContent {
-        justify-content: center;
-        height: auto; /* Убираем фиксированную высоту */
-    }
-
-    form {
-        width: 90%; /* Делаем форму шире на мобильных устройствах */
-        max-width: 400px; /* Ограничиваем максимальную ширину */
-        margin: 0 auto; /* Центрируем форму */
-    }
-}
-
-@media screen and (max-width: 480px) {
-    
-    body {
-        overflow: hidden; /* Запрещаем скроллинг */
-    }
-
-    .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
-        padding: 0;
-    }
-
-    .loginContent {
-        margin-top: 150px; /* Снимаем любое смещение вверх */
-        height: auto; /* Убираем фиксированную высоту */
-        align-items: center; /* Центрируем содержимое */
-    }
-
-    form {
-        width: 90%; /* Форма занимает 90% ширины */
-        max-width: 360px; /* Ограничиваем максимальную ширину формы */
-        margin: 0 auto; /* Центрируем форму */
-    }
+    color: #0A7075;
 }

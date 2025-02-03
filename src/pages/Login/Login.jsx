@@ -4,9 +4,9 @@ import axios from 'axios';
 import { useAuth } from '../AuthContext'; // Импорт контекста аутентификации
 import styles from './Login.module.css'; 
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import avatar from '../../imgs/login/avatar.svg';
+import avatar from '../../imgs/login/avatar.png';
 import wave from '../../imgs/login/wave.png';
-import bg from '../../imgs/login/bg.svg';
+import bg from '../../imgs/login/bg.png';
 
 function Login() {
   const [focused, setFocused] = useState({ email: false, password: false });
@@ -14,21 +14,8 @@ function Login() {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const { login } = useAuth(); // Получаем функцию для входа из контекста
-  const [baseUrl, setBaseUrl] = useState('');
   const navigate = useNavigate(); // Инициализируем navigate
 
-  useEffect(() => {
-    // Логика для установки правильного baseUrl
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isAndroid = /android/.test(userAgent); // Проверка на Android
-  
-    if (isAndroid) {
-      setBaseUrl('http://192.168.31.128:8000'); // Для мобильного устройства
-    } else {
-      setBaseUrl('http://localhost:8000'); // Для веб-приложения
-    }
-  
-  }, []);
 
   const handleFocus = (field) => {
     setFocused(prevState => ({ ...prevState, [field]: true }));
@@ -50,13 +37,12 @@ function Login() {
       return;
     }
     try {
-      const response = await axios.post(`${baseUrl}/login/`, { email, password });
+      const response = await axios.post(`http://localhost:8000/login/`, { email, password });
       if (response.status === 200 && response.data.message === 'Вход успешен') {
         const userData = { 
           id: response.data.id,
           email, 
           first_name: response.data.first_name || 'Не указано', 
-          last_name: response.data.last_name || 'Не указано',
           city: response.data.city || 'Не указано',
           photo_url: response.data.photo_url || ''
         };

@@ -32,7 +32,7 @@ function Register() {
       return;
     }
     try {
-      const response = await axios.post(`${baseUrl}/send-verification-code/`, { email });
+      const response = await axios.post(`http://localhost:8000/send-verification-code/`, { email });
       if (response.status === 200) {
         setIsCodeSent(true);
         alert('Код отправлен на ваш email');
@@ -58,7 +58,7 @@ function Register() {
       return;
     }
     try {
-      const response = await axios.post(`${baseUrl}/register/`, {
+      const response = await axios.post(`http://localhost:8000/register/`, {
         first_name: firstName,
         email,
         password,

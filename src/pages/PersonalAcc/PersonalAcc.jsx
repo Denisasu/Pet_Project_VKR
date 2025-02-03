@@ -10,12 +10,10 @@ function PersonalAcc() {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     first_name: '',
-    last_name: '',
     city: '',
     email: '',
     photo_url: null,
   });
-  const [baseUrl, setBaseUrl] = useState(''); // Добавлено состояние для baseUrl
 
   const navigate = useNavigate();
 
@@ -27,7 +25,6 @@ function PersonalAcc() {
       console.log('Пользователь загружен:', user);
       setFormData({
         first_name: user.first_name || '',
-        last_name: user.last_name || '',
         city: user.city || '',
         email: user.email || '',
         photo_url: null,
@@ -36,22 +33,9 @@ function PersonalAcc() {
     }
   }, [navigate, user]);
 
-  useEffect(() => {
-    // Определяем baseUrl
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isAndroid = /android/.test(userAgent);
-
-    if (isAndroid) {
-      setBaseUrl('http://192.168.31.128:8000'); // Для Android
-    } else {
-      setBaseUrl('http://localhost:8000'); // Для веба
-    }
-  }, []);
-
   const fetchApplications = async (email) => {
-    if (!baseUrl) return; // Ждем, пока baseUrl будет установлен
     try {
-      const response = await axios.get(`${baseUrl}/applications/email/${email}`);
+      const response = await axios.get(`http://localhost:8000/applications/email/${email}`);
       setApplications(response.data);
     } catch (error) {
       console.error('Ошибка при получении заявок:', error);
@@ -59,9 +43,8 @@ function PersonalAcc() {
   };
 
   const fetchUserData = async () => {
-    if (!baseUrl || !user) return;
     try {
-      const response = await axios.get(`${baseUrl}/users/${user.id}`);
+      const response = await axios.get(`http://localhost:8000/users/${user.id}`);
       setUser(response.data);
     } catch (error) {
       console.error('Ошибка при получении данных пользователя:', error);
@@ -79,14 +62,13 @@ function PersonalAcc() {
   };
 
   const handleSave = async () => {
-    if (!baseUrl || !user || !user.id) {
-      console.error('Ошибка: baseUrl, user или user.id не определены');
+    if (!user || !user.id) {
+      console.error('Ошибка: user или user.id не определены');
       return;
     }
 
     const formDataToUpdate = new FormData();
     formDataToUpdate.append('first_name', formData.first_name);
-    formDataToUpdate.append('last_name', formData.last_name);
     formDataToUpdate.append('city', formData.city);
     formDataToUpdate.append('email', formData.email);
 
@@ -95,7 +77,7 @@ function PersonalAcc() {
     }
 
     try {
-      const response = await axios.put(`${baseUrl}/users/${user.id}`, formDataToUpdate, {
+      const response = await axios.put(`http://localhost:8000/users/${user.id}`, formDataToUpdate, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -106,7 +88,6 @@ function PersonalAcc() {
       setIsEditing(false);
       setFormData({
         first_name: response.data.first_name,
-        last_name: response.data.last_name,
         city: response.data.city,
         email: response.data.email,
         photo_url: null,
@@ -117,14 +98,18 @@ function PersonalAcc() {
       alert('Ошибка при сохранении данных. Попробуйте снова.');
     }
   };
-  
+
+  const handleApply = () => {
+    console.log('Подача заявки');
+    navigate('/zayvka');
+  };
+
   const handleLogout = () => {
     logout();
     localStorage.removeItem('user'); // Удаляем данные о пользователе из localStorage при выходе
     navigate('/login');
   };
 
-  // Загрузка данных из localStorage при загрузке страницы
   useEffect(() => {
     const cachedUser = localStorage.getItem('user');
     if (cachedUser) {
@@ -143,7 +128,7 @@ function PersonalAcc() {
           <img src={user.photo_url || "https://via.placeholder.com/150"} alt="User" className="user-photo" />
           {!isEditing ? (
             <div className="user-info">
-              <h3>{`${user.first_name} ${user.last_name}`}</h3>
+              <h3>{user.first_name}</h3>
               <p>Город: {user.city}</p>
               <p>Email: {user.email}</p>
             </div>
@@ -155,13 +140,6 @@ function PersonalAcc() {
                 value={formData.first_name}
                 onChange={handleInputChange}
                 placeholder="Имя"
-              />
-              <input
-                type="text"
-                name="last_name"
-                value={formData.last_name}
-                onChange={handleInputChange}
-                placeholder="Фамилия"
               />
               <input
                 type="text"
@@ -205,6 +183,10 @@ function PersonalAcc() {
             Выйти из аккаунта
           </button>
         </div>
+        {/* Кнопка под правым столбцом */}
+        <div className="apply-button-container">
+          <button onClick={handleApply} className="apply-btn">Подать заявку</button>
+        </div>
       </div>
 
       <div className="left-column">
@@ -237,6 +219,7 @@ function PersonalAcc() {
         </table>
       </div>
     </div>
+
   );
 }
 

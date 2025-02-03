@@ -47,9 +47,6 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # CORS настройки - можно расширить для работы с внешними доменами, если нужно
 origins = [
     "http://localhost:5173",  # Для локального сервера
-    "http://10.0.2.2:5173",   # Для эмулятора
-    "http://192.168.31.128:5173",  # Для реального устройства
-    "http://0.0.0.0:8000",  # Этот источник не нужен
 ]
 
 app.add_middleware(
@@ -149,24 +146,6 @@ async def save_and_crop_image(file: UploadFile):
         print(f"Ошибка обработки изображения: {e}")
         raise HTTPException(status_code=400, detail="Ошибка обработки изображения")
     
-
- 
-#------------------------------------------------------------------------------#
-
-@app.middleware("http")
-async def set_base_url(request: Request, call_next):
-    user_agent = request.headers.get("User-Agent", "")
-    if "Android" in user_agent:
-        base_url = "http://192.168.31.128:8000"
-    else:
-        base_url = "http://localhost:8000"
-
-    # Добавляем base_url в контекст запроса (или используйте его в следующем шаге)
-    response = await call_next(request)
-    
-    # Можно передать base_url как часть ответа на все запросы
-    response.headers['X-Base-Url'] = base_url
-    return response
 
 # CRUD для Application
 @app.post("/applications/", response_model=schemas.Application)
@@ -282,7 +261,6 @@ def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
         email=user.email,
         password_hash=hashed_password,
         first_name=user.first_name,  # Сохраняем имя
-        last_name=user.last_name,     # Сохраняем фамилию
         photo_url=user.photo_url
     )
     db.add(db_user)
@@ -303,7 +281,6 @@ def login_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
         "message": "Вход успешен",
         "id": db_user.id,
         "first_name": db_user.first_name,  # Предположим, что в модели User есть поле first_name
-        "last_name": db_user.last_name, # Аналогично для last_name
         "city": db_user.city,
         "photo_url": db_user.photo_url
     }
@@ -317,7 +294,6 @@ async def send_confirmation_email(request: EmailRequest):
 async def update_user(
     user_id: int,
     first_name: str = Form(None),
-    last_name: str = Form(None),
     city: str = Form(None),
     email: str = Form(None),
     file: UploadFile = None,
@@ -330,8 +306,6 @@ async def update_user(
     # Обновление данных
     if first_name:
         db_user.first_name = first_name
-    if last_name:
-        db_user.last_name = last_name
     if city:
         db_user.city = city
     if email:
@@ -415,7 +389,7 @@ async def upload_image(file: UploadFile):
 class_names = ['cardboard', 'glass', 'metal', 'paper', 'plastic', 'trash']  # Названия ваших классов
 model = torchvision_models.resnet18(pretrained=False)
 model.fc = nn.Linear(model.fc.in_features, len(class_names))
-model.load_state_dict(torch.load('C:/Users/dutov/Downloads/Telegram Desktop/Backend_ZP23/app/trash_classifier.pth', map_location=torch.device('cpu')))
+model.load_state_dict(torch.load('C:/Users/login/Desktop/trash/trash_classifier.pth', map_location=torch.device('cpu')))
 model.eval()  # Перевод модели в режим оценки
 
 # Трансформация изображения

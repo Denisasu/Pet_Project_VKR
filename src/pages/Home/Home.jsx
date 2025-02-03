@@ -12,7 +12,7 @@ function Home() {
 
     // Функция для навигации на страницу "Заявка"
     const handleClick = () => {
-        navigate('/Zayvka');
+        navigate('/PersonalAcc');
     };
 
     return (
@@ -46,7 +46,6 @@ function Home() {
                         </div>
                     </div>
                 </section>
-                {/* Элипс в середине страницы */}
                 
             
                 

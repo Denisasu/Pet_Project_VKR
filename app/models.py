@@ -35,7 +35,6 @@ class User(Base):
     email = Column(String, unique=True, index=True, nullable=False)
     password_hash = Column(String(255), nullable=False)
     first_name = Column(String(255), nullable=False)  # Добавлено поле для имени
-    last_name = Column(String(255), nullable=False)   # Добавлено поле для фамилии
     created_at = Column(DateTime(timezone=True), default=func.now(), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     city = Column(String(255), nullable=False)

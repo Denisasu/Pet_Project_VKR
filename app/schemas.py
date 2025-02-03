@@ -52,7 +52,6 @@ class MessageCreate(BaseModel):
 class UserBase(BaseModel):
     email: EmailStr
     first_name: Optional[str] = None  # Добавлено поле для имени
-    last_name: Optional[str] = None   # Добавлено поле для фамилии
     city: Optional[str] = None
     photo_url: Optional[str] = None 
 
@@ -67,7 +66,6 @@ class User(UserBase):
 
 class UserUpdate(BaseModel):
     first_name: Optional[str] = None
-    last_name: Optional[str] = None
     city: Optional[str] = None
     email: Optional[EmailStr] = None
     photo_url: Optional[UploadFile]

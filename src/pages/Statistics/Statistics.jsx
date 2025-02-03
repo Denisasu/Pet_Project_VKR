@@ -6,26 +6,10 @@ import styles from "./Statistics.module.css";
 
 function Statistics() {
   const [statistics, setStatistics] = useState(null); // Состояние для хранения статистики
-  const [baseUrl, setBaseUrl] = useState(''); // Для хранения baseUrl
 
   useEffect(() => {
-    // Логика для установки правильного baseUrl
-    const userAgent = navigator.userAgent.toLowerCase(); 
-    const isAndroid = /android/.test(userAgent); // Проверка на Android
-
-    if (isAndroid) {
-      //setBaseUrl('http://192.168.31.128:8000'); // Для мобильного устройства
-    } else {
-      setBaseUrl('http://localhost:8000'); // Для веб-приложения
-    }
-
-  }, []); // Вызывается только при монтировании компонента
-
-  useEffect(() => {
-    if (!baseUrl) return; // Если baseUrl не задан, ничего не делаем
-
     // Делаем запрос на сервер для получения статистики
-    axios.get(`${baseUrl}/statistics/`)
+    axios.get('http://localhost:8000/statistics/') // Прямой запрос без использования baseUrl
       .then(response => {
         console.log('Server response:', response.data); // Логируем ответ сервера для отладки
         setStatistics(response.data); // Устанавливаем статистику в состояние
@@ -33,7 +17,7 @@ function Statistics() {
       .catch(error => {
         console.error('Ошибка при получении статистики:', error);
       });
-  }, [baseUrl]); // Этот useEffect срабатывает, когда baseUrl изменяется
+  }, []); // useEffect будет срабатывать при монтировании компонента
 
   // Если статистика не загружена, отображаем заглушку
   if (!statistics) {

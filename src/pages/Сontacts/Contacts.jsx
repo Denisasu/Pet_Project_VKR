@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Alert } from 'react-bootstrap';
-import avatar from '../../imgs/login/avatar.svg';
+import avatar from '../../imgs/login/avatar.png';
 import wave from '../../imgs/login/wave.png';
-import bg from '../../imgs/login/bg.svg';
+import bg from '../../imgs/login/bg.png';
 import styles from './Contacts.module.css';
 
 function Contacts() {
@@ -13,22 +13,6 @@ function Contacts() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [focused, setFocused] = useState({});
-  const [baseUrl, setBaseUrl] = useState(''); // Для хранения baseUrl
-
-  useEffect(() => {
-    // Логика для установки правильного baseUrl
-    const userAgent = navigator.userAgent.toLowerCase(); 
-    const isAndroid = /android/.test(userAgent); // Проверка на Android
-
-    if (isAndroid) {
-      setBaseUrl('http://192.168.31.128:8000'); // Для мобильного устройства
-    } else {
-      setBaseUrl('http://localhost:8000'); // Для веб-приложения
-    }
-
-  }, []); // Вызывается только при монтировании компонента
-
-
 
   const handleFocus = (field) => {
     setFocused((prevState) => ({ ...prevState, [field]: true }));
@@ -49,8 +33,7 @@ function Contacts() {
     setIsSubmitting(true);
 
     try {
-      // Use dynamically set baseUrl in the request
-      const response = await fetch(`${baseUrl}/messages/`, {
+      const response = await fetch(`http://localhost:8000/messages/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(feedbackData),

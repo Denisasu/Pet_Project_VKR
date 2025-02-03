@@ -20,7 +20,7 @@ body {
   margin-top: 20px;
   font-size: 1.2em;
   text-align: center;
-  background-color: #38d39f; /* Измените цвет фона */
+  background-color: #0A7075; /* Измените цвет фона */
   color: #ffffff; /* Цвет текста */
 }
 
@@ -39,35 +39,41 @@ body {
   margin-bottom: 10px; /* Немного отступа между адресами */
 }
 
-.submitButton {
-  background-color: #38d39f;
+
+/* Стиль для кнопки выбора файла */
+.inputDiv .fileLabel {
+  display: inline-flex; /* Используем inline-flex для выравнивания текста по центру */
+  justify-content: center; /* Центрируем текст по горизонтали */
+  align-items: center; /* Центрируем текст по вертикали */
+  padding: 10px 100px;
+  background-color: #0A7075; /* Цвет кнопки */
+  border-radius: 30px; /* Овальная форма */
   color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 25px;
+  font-size: 0.8rem;
   cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s;
+  white-space: nowrap; /* Предотвращает перенос текста на несколько строк */
+  margin-left: 50px; /* Смещаем кнопку немного вправо */
 }
 
-.submitButton:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+/* Стиль для иконки фотоаппарата */
+.inputDiv .fileLabel .icon {
+  position: absolute;
+  font-size: 1.2rem; /* Размер иконки */
+  left: 10px; /* Отступ слева */
 }
 
-.wave {
-  display: none;
+.inputDiv input[type="file"] {
+  display: none; /* Скрываем реальный input */
 }
+
+
 
 .pererabotContent {
   justify-content: center;
 }
 
-.wave {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  height: 100%;
-  opacity: 0.5;
-}
 
 .container {
   display: flex;
@@ -100,7 +106,7 @@ body {
 
 .pererabotContent h2 {
   margin: 15px 0;
-  color: #333;
+  color: #ffffff;
   font-weight: 700;
   font-size: 2.9rem;
 }
@@ -111,7 +117,7 @@ body {
   grid-template-columns: 7% 93%;
   margin: 25px 0;
   padding: 5px 0;
-  border-bottom: 2px solid #d9d9d9;
+  border-bottom: 2px solid #ffffff;
 }
 
 .inputDiv.one {
@@ -119,7 +125,7 @@ body {
 }
 
 .i {
-  color: #d9d9d9;
+  color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -139,7 +145,7 @@ body {
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  color: #999;
+  color: #ffffff;
   font-size: 18px;
   transition: .3s;
 }
@@ -151,7 +157,7 @@ body {
   bottom: -2px;
   width: 0%;
   height: 2px;
-  background-color: #38d39f;
+  background-color: #0A7075;
   transition: .4s;
 }
 
@@ -171,11 +177,11 @@ body {
 .inputDiv.focus .inputWrapper h5 {
   top: -5px;
   font-size: 15px;
-  color: #38d39f;
+  color: #0A7075;
 }
 
 .inputDiv.focus .i i {
-  color: #38d39f;
+  color: #0A7075;
 }
 
 .inputDiv .inputWrapper input,
@@ -190,8 +196,7 @@ body {
   background: none;
   padding: 0.5rem 0.7rem;
   font-size: 1.2rem;
-  color: #555;
-  font-family: 'Poppins', sans-serif;
+  color: #ffffff;
 }
 
 .inputDiv.pass {
@@ -209,15 +214,15 @@ body {
   height: 40px;
   padding: 0 0.7rem;
   font-size: 1rem;
-  color: #555;
+  color: #0A7075;
   background: none; /* Убираем фон */
   border: none; /* Убираем стандартную границу */
-  border-bottom: 2px solid #d9d9d9; /* Линия снизу */
+  border-bottom: 2px solid #ffffff; /* Линия снизу */
 }
 
 .locationWrapper input:focus {
   outline: none; /* Убираем обводку при фокусе */
-  border-bottom: 2px solid #38d39f; /* Линия снизу при фокусе */
+  border-bottom: 2px solid #0A7075; /* Линия снизу при фокусе */
 }
 
 textarea {
@@ -240,11 +245,10 @@ textarea {
   border-radius: 25px;
   outline: none;
   border: none;
-  background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+  background-image: linear-gradient(to right, #0A7075, #0f8086, #18abb3);
   background-size: 200%;
   font-size: 1.2rem;
   color: #fff;
-  font-family: 'Poppins', sans-serif;
   text-transform: uppercase;
   margin: 1rem 0;
   cursor: pointer;
@@ -253,205 +257,4 @@ textarea {
 
 .btn:hover {
   background-position: right;
-}
-
-.avatarWrapper {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.avatar {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.ellipse {
-  position: absolute;
-  bottom: -150px;
-  left: -190px;
-  width: 650px; /* Размер изображения, можно изменить */
-}
-
-.star {
-  position: absolute;
-  bottom: -120px;
-  right: 20px;
-  width: 450px; /* Размер изображения, можно изменить */
-}
-
-/* Адаптивность */
-
-@media screen and (max-width: 1050px) {
-  .container {
-      grid-gap: 5rem;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  form {
-      width: 290px;
-  }
-
-  .pererabotContent h2 {
-      font-size: 2.4rem;
-      margin: 8px 0;
-  }
-
-  .img img {
-      width: 400px;
-  }
-}
-
-@media screen and (max-width: 900px) {
-  .container {
-      grid-template-columns: 1fr;
-  }
-
-  .img {
-      display: none;
-  }
-
-  .avatar {
-      width: 100px;
-      height: 100px;
-  }
-
-  .buttonsWrapper {
-      width: 90%;
-  }
-
-  .btn {
-      font-size: 1rem;
-      height: 45px;
-  }
-
-  .inputDiv {
-      grid-template-columns: 10% 90%; /* Уменьшаем размер иконки */
-  }
-
-  .inputDiv .inputWrapper input,
-  .inputDiv .inputWrapper textarea {
-      font-size: 1rem;
-  }
-
-  .pererabotContent h2 {
-      font-size: 2rem;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  body {
-      display: block;
-      padding: 10px;
-  }
-
-  .pererabotContent h2 {
-    font-size: 2rem; /* Adjust for mobile */
-  }
-
-  .container {
-      padding: 1rem;
-  }
-
-  .pererabotContent h2 {
-      font-size: 1.8rem;
-  }
-
-  .btn {
-      font-size: 0.9rem;
-      height: 40px;
-  }
-
-  .locationWrapper input {
-      font-size: 0.9rem;
-  }
-
-  .inputDiv {
-      grid-template-columns: 15% 85%;
-  }
-
-  .inputWrapper input::-webkit-file-upload-button {
-    cursor: pointer;
-    padding: 5px 10px;
-    background-color: #38d39f;
-    color: white;
-    border: none;
-    border-radius: 5px;
-
-  }
-
-  .inputDiv .inputWrapper input,
-  .inputDiv .inputWrapper textarea {
-      font-size: 1rem;
-  }
-
-  .avatar {
-      width: 90px;
-      height: 90px;
-  }
-
-  .submitButton {
-    padding: 8px 15px; /* Smaller padding for mobile */
-  }
-
-}
-
-@media screen and (max-width: 480px) {
-  
-  body {
-      overflow: hidden; /* Запрещаем скроллинг */
-  }
-
-  .star {
-    position: absolute;
-    bottom: -60px;
-    right: -100px;
-    width: 300px;
-  }
-
-  .ellipse{
-    position: absolute;
-    bottom: -40px;
-    left: -135px;
-    width: 300px;
-  }
-
-  .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      padding: 0;
-  }
-
-  .pererabotContent {
-      margin-top: -450px; /* Снимаем любое смещение вверх */
-      height: auto; /* Убираем фиксированную высоту */
-      align-items: center; /* Центрируем содержимое */
-  }
-
-  form {
-      width: 90%; /* Форма занимает 90% ширины */
-      max-width: 360px; /* Ограничиваем максимальную ширину формы */
-      margin: 0 auto; /* Центрируем форму */
-  }
-
-  .fileLabel {
-    cursor: pointer; /* Убедитесь, что курсор установлен */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-  
-  .fileLabel:hover {
-    background-color: #f0f0f0; /* Убедитесь, что hover работает */
-  }
-  
-
 }
