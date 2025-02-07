@@ -1,30 +1,59 @@
-
-body {
-    display: flex;  /* Включаем flexbox для body */
-    justify-content: center;  /* Центрируем по горизонтали */
-    align-items: center;  /* Центрируем по вертикали */
-    height: 100vh;  /* Высота страницы на весь экран */
-    margin: 0;  /* Убираем стандартные отступы */
-}
-
-.container{
-    position: relative; 
-}
-
-.secone {
-    flex-grow: 1;
+.home-container {
+    margin-top: 195px;
+    padding-bottom: 70px;
     width: 100%;
-    margin: 0 auto;
-    padding-top: 235px; 
-    display: flex;
-    text-align: left;
-    align-items: center;
-    justify-content: center;
+    height: 100%;
+    
 }
 
 .secone-one {
     flex-grow: 1;
     text-align: center;
+}
+
+.header {
+    position: relative;
+    z-index: 1; /* Убедитесь, что текст находится выше псевдоэлемента */
+    margin-bottom: 200px;
+}
+
+.header::before { /* Эллипс */
+    content: '';
+    position: absolute;
+    width: 936px;
+    height: 936px;
+    background: rgba(219, 219, 219, 0.4);
+    border-radius: 50%;
+    filter: blur(80px);
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 1;
+    z-index: -1; /* Убедитесь, что псевдоэлемент находится ниже текста */
+}
+
+.header h1, .header h2 {
+    position: relative;
+    z-index: 1;
+
+    font-size: 6.25rem;
+    margin-right: 10px;
+    font-family: 'Montserrat Alternates', sans-serif;
+    color: #ffffff;
+}
+
+
+/* Стили для слов в тексте */
+.header .line-container-first h1::after {
+    content: "природы"; /* Слово природа */
+    color: #0A7075; /* Цвет для "Природы" */
+    margin-left: 20px; /* Добавим небольшой отступ */
+}
+
+.header .line-container-second h2::after {
+    content: "ты!"; /* Слово ты */
+    color: #0A7075; /* Цвет для "Ты" */   
+    margin-left: 20px; /* Добавим небольшой отступ */
 }
 
 /* Первая строка */
@@ -41,6 +70,19 @@ body {
 
 .line-container-first h1 {
     margin-right: 100px; /* Отступ между текстом и линией */
+}
+
+.line-container-first::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 0;
+    border-bottom: 10px dashed #ffffff; /* Пунктирная линия */
+    margin-left: 10px; /* Отступ между текстом и линией */
+    width: 26vw; /* Ширина линии 100% от ширины окна */
+    transform: translateX(200%); /* Центрируем линию */
+    overflow: hidden;
 }
 
 .line-container-first .dashed-line {
@@ -62,6 +104,19 @@ body {
     z-index: 1;
 }
 
+.line-container-second::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 0;
+    border-bottom: 10px dashed #ffffff; /* Пунктирная линия */
+    margin-right: 10px; /* Отступ между текстом и линией */
+    width: 70vw; /* Ширина линии 100% от ширины окна */
+    transform: translateX(-50%); /* Центрируем линию */
+    overflow: hidden;
+}
+
 .line-container-second .dashed-line {
     margin-left: 100px; /* Добавляем отступ между текстом и линией */
 }
@@ -77,35 +132,9 @@ body {
 }
 
 
-.header h1 {
-    font-size: 6.25rem;
-    margin-right: 10px;
-    font-family: 'Montserrat Alternates', sans-serif;
-    color: #ffffff;
-}
-
-.header h2 {
-    font-size: 6.25rem;
-    margin-left: 10px;
-    font-family: 'Montserrat Alternates', sans-serif;
-    color: #ffffff; /* Цвет "Это" — белый */
-}
-
-/* Стили для слов в тексте */
-.header .line-container-first h1::after {
-    content: "природы"; /* Слово природа */
-    color: #0A7075; /* Цвет для "Природы" */
-    margin-left: 20px; /* Добавим небольшой отступ */
-}
-
-.header .line-container-second h2::after {
-    content: "ты!"; /* Слово ты */
-    color: #0A7075; /* Цвет для "Ты" */   
-    margin-left: 20px; /* Добавим небольшой отступ */
-}
-
 .button-group {
     display: flex;
+    justify-content: flex-start;
     gap: 20px; /* Расстояние между кнопками */
     margin-top: 20px; /* Отступ сверху для всей группы кнопок */
 }
@@ -119,13 +148,26 @@ body {
     width: 250px;
     height: 55px;
     font-size: 18px;
-    margin-top: 250px;
+    
     font-family: 'Montserrat Alternates', sans-serif;
     z-index: 1;
     outline: none;
 }
 
-
+.btn-title.two {
+    background-color: transparent;
+    color: #0C969C;
+    border-radius: 32.5px;
+    border: 3px solid #0C969C; /* Добавляем границу */
+    width: 250px;
+    height: 55px;
+    font-size: 18px;
+    font-weight: bold; /* Жирный текст */
+    
+    font-family: 'Montserrat Alternates', sans-serif;
+    z-index: 1;
+    outline: none;
+}
 /* Убираем синий фон и границу при фокусе */
 .btn-title:focus {
     outline: none !important; /* Убираем стандартную обводку */
@@ -152,23 +194,9 @@ body {
     outline: none;
 }
 
-/* Стили для эллипса в центре страницы */
-.ellipse {
-    width: 800px;  /* Ширина эллипса */
-    height: 800px; /* Высота эллипса */
-    background-color: #83C6C9; /* Цвет эллипса */
-    border-radius: 50%; /* Элиптическая форма */
-    filter: blur(90px); /* Эффект размытия */ 
-    position: absolute;
-    top: 400px; /* Позиционируем по центру по вертикали */
-    left: 50%; /* Позиционируем по центру по горизонтали */
-    transform: translate(-50%, -50%); /* Сдвигаем на 50% от своей ширины и высоты */
-    z-index: 0; /* Помещаем эллипс позади других элементов */
-}
-
 /* -----------------О проекте----------------------------------- */
 .project-container {
-    margin: 50px auto;
+    margin: 0 auto;
     padding: 20px;
     border-radius: 10px;
 }
@@ -290,7 +318,7 @@ body {
 }
 
 .actual-sliders{
-
+    margin-top: 100px;
 }
 
 .actual-sliders-item{
@@ -303,6 +331,22 @@ body {
     box-shadow: 6px 1px 13px 0px rgba(0, 0, 0, 0.25);
     background: rgb(44, 161, 165);
 }
+/* --------------Пункты переработки----------------------------------- */
+
+.maps-header h1{
+    text-align: right;
+    color: #ffffff;
+    background-color: #087174;
+    padding: 10px 20px;
+    border-radius: 0px 30px 30px 0;
+    margin-top: 50px;
+    margin-right: 70px;
+    margin-left: -550px;
+    width: 920px;
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+
 
 /* --------------Этапы----------------------------------- */
 
@@ -324,7 +368,14 @@ body {
     width: 920px;
     font-family: 'Montserrat Alternates', sans-serif;
 }
-
+.stages-items{
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 40px;
+}
+.two{
+    justify-content: flex-end;
+}
 .stage_1{
     display: flex;
     justify-content: center;
@@ -333,7 +384,9 @@ body {
     border-radius: 30px;
     background: rgb(12, 150, 156);
     width: 825px;
-    left: 346px;
+}
+.stagetwo{
+
 }
 
 .stage_1_text{

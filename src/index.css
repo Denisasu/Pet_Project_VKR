@@ -1,28 +1,45 @@
-/* index.css */
-
-html, body{
-  height: 100%;
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  
 }
 
-/* Reset some default styles */
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  
+}
+/* Сброс некоторых стилей по умолчанию */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Set default font and background color */
+/* Установка шрифта и цвета фона */
 body {
   font-family: Arial, sans-serif;
   background-color: #3EB8BD;
-  color: #ffffff;
+  color: #000000; /* Изменено на чёрный для лучшей читабельности */
+  font-family: 'Poppins', sans-serif;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh; 
+  margin: 0; 
+  
 }
 
-/* Container for the main content */
-.container {
-  width: 1250px;
-  margin: 0;
+/* Основной контейнер */
+.main-container {
+  max-width: 1250px;
+  margin-top: 55px;
+  padding: 20px 0; /* Добавим отступы сверху и снизу */
+  flex: 1; /* Добавим флекс-свойство для растяжения */
 }
-
-/* Header styles */
-/*  */

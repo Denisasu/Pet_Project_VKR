@@ -4,6 +4,7 @@ import axios from 'axios';
 import styles from './Register.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import register1 from '../../imgs/register/register1.png';
+import { Container } from 'react-bootstrap';
 
 function Register() {
   const [firstName, setFirstName] = useState('');
@@ -75,136 +76,138 @@ function Register() {
   };
 
   return (
-    <div className={styles.registerContainer}>
-      <div className={styles.container}>
-        <div className={styles.registerContent}>
-          {!isCodeSent ? (
-            <form>
-              <h2 className={styles.title}>Присоединяйся</h2>
-              <div className={`${styles.inputDiv} ${focused.firstName ? styles.focus : ''}`}>
-                <div className={styles.i}>
-                  <i className="fas fa-user"></i>
+    <Container>
+      <div className={styles.registerContainer}>
+        <div className={styles.container}>
+          <div className={styles.registerContent}>
+            {!isCodeSent ? (
+              <form>
+                <h2 className={styles.title}>Присоединяйся</h2>
+                <div className={`${styles.inputDiv} ${focused.firstName ? styles.focus : ''}`}>
+                  <div className={styles.i}>
+                    <i className="fas fa-user"></i>
+                  </div>
+                  <div className={styles.inputWrapper}>
+                    <h5>Имя</h5>
+                    <input
+                      type="text"
+                      className={styles.input}
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      onFocus={() => handleFocus('firstName')}
+                      onBlur={(e) => handleBlur('firstName', e.target.value)}
+                      required
+                    />
+                  </div>
                 </div>
-                <div className={styles.inputWrapper}>
-                  <h5>Имя</h5>
-                  <input
-                    type="text"
-                    className={styles.input}
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    onFocus={() => handleFocus('firstName')}
-                    onBlur={(e) => handleBlur('firstName', e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
 
-              <div className={`${styles.inputDiv} ${focused.email ? styles.focus : ''}`}>
-                <div className={styles.i}>
-                  <i className="fas fa-envelope"></i>
+                <div className={`${styles.inputDiv} ${focused.email ? styles.focus : ''}`}>
+                  <div className={styles.i}>
+                    <i className="fas fa-envelope"></i>
+                  </div>
+                  <div className={styles.inputWrapper}>
+                    <h5>Email</h5>
+                    <input
+                      type="email"
+                      className={styles.input}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      onFocus={() => handleFocus('email')}
+                      onBlur={(e) => handleBlur('email', e.target.value)}
+                      required
+                    />
+                  </div>
                 </div>
-                <div className={styles.inputWrapper}>
-                  <h5>Email</h5>
-                  <input
-                    type="email"
-                    className={styles.input}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    onFocus={() => handleFocus('email')}
-                    onBlur={(e) => handleBlur('email', e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
 
-              <div className={`${styles.inputDiv} ${focused.password ? styles.focus : ''}`}>
-                <div className={styles.i}>
-                  <i className="fas fa-lock"></i>
+                <div className={`${styles.inputDiv} ${focused.password ? styles.focus : ''}`}>
+                  <div className={styles.i}>
+                    <i className="fas fa-lock"></i>
+                  </div>
+                  <div className={styles.inputWrapper}>
+                    <h5>Пароль</h5>
+                    <input
+                      type="password"
+                      className={styles.input}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      onFocus={() => handleFocus('password')}
+                      onBlur={(e) => handleBlur('password', e.target.value)}
+                      required
+                    />
+                  </div>
                 </div>
-                <div className={styles.inputWrapper}>
-                  <h5>Пароль</h5>
-                  <input
-                    type="password"
-                    className={styles.input}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    onFocus={() => handleFocus('password')}
-                    onBlur={(e) => handleBlur('password', e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
 
-              <div className={`${styles.inputDiv} ${focused.confirmPassword ? styles.focus : ''}`}>
-                <div className={styles.i}>
-                  <i className="fas fa-lock"></i>
+                <div className={`${styles.inputDiv} ${focused.confirmPassword ? styles.focus : ''}`}>
+                  <div className={styles.i}>
+                    <i className="fas fa-lock"></i>
+                  </div>
+                  <div className={styles.inputWrapper}>
+                    <h5>Подтверждение пароля</h5>
+                    <input
+                      type="password"
+                      className={styles.input}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      onFocus={() => handleFocus('confirmPassword')}
+                      onBlur={(e) => handleBlur('confirmPassword', e.target.value)}
+                      required
+                    />
+                  </div>
                 </div>
-                <div className={styles.inputWrapper}>
-                  <h5>Подтверждение пароля</h5>
-                  <input
-                    type="password"
-                    className={styles.input}
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    onFocus={() => handleFocus('confirmPassword')}
-                    onBlur={(e) => handleBlur('confirmPassword', e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
 
-              <button
-                type="button"
-                className={styles.btn}
-                onClick={sendCode}
-              >
-                Регистрация
-              </button>
-            </form>
-          ) : (
-            <form>
-              <h2 className={styles.title}>Подтверждение почты</h2>
-              <div className={`${styles.inputDiv} ${focused.confirmationCode ? styles.focus : ''}`}>
-                <div className={styles.i}>
-                  <i className="fas fa-key"></i>
-                </div>
-                <div className={styles.inputWrapper}>
-                  <h5>Введите код подтверждения</h5>
-                  <input
-                    type="text"
-                    className={styles.input}
-                    value={confirmationCode}
-                    onChange={(e) => setConfirmationCode(e.target.value)}
-                    onFocus={() => handleFocus('confirmationCode')}
-                    onBlur={(e) => handleBlur('confirmationCode', e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-
-              <button
-                type="button"
-                className={styles.btn}
-                onClick={verifyCode}
-              >
-                Подтвердить
-              </button>
-              {isCodeConfirmed && (
                 <button
                   type="button"
                   className={styles.btn}
-                  onClick={handleRegister}
+                  onClick={sendCode}
                 >
-                  Зарегистрироваться
+                  Регистрация
                 </button>
-              )}
-            </form>
-          )}
+              </form>
+            ) : (
+              <form>
+                <h2 className={styles.title}>Подтверждение почты</h2>
+                <div className={`${styles.inputDiv} ${focused.confirmationCode ? styles.focus : ''}`}>
+                  <div className={styles.i}>
+                    <i className="fas fa-key"></i>
+                  </div>
+                  <div className={styles.inputWrapper}>
+                    <h5>Введите код подтверждения</h5>
+                    <input
+                      type="text"
+                      className={styles.input}
+                      value={confirmationCode}
+                      onChange={(e) => setConfirmationCode(e.target.value)}
+                      onFocus={() => handleFocus('confirmationCode')}
+                      onBlur={(e) => handleBlur('confirmationCode', e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  className={styles.btn}
+                  onClick={verifyCode}
+                >
+                  Подтвердить
+                </button>
+                {isCodeConfirmed && (
+                  <button
+                    type="button"
+                    className={styles.btn}
+                    onClick={handleRegister}
+                  >
+                    Зарегистрироваться
+                  </button>
+                )}
+              </form>
+            )}
+          </div>
+          <img src={register1} className={styles.registerImage} alt="register" />
         </div>
-        <img src={register1} className={styles.registerImage} alt="register" />
+        
       </div>
-      
-    </div>
+  </Container>
   );
 }
 

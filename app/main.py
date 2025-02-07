@@ -29,6 +29,7 @@ import uuid
 import base64
 from fastapi.security import OAuth2PasswordBearer
 
+
 # Создаем таблицы
 models.Base.metadata.create_all(bind=engine)
 
@@ -389,7 +390,7 @@ async def upload_image(file: UploadFile):
 class_names = ['cardboard', 'glass', 'metal', 'paper', 'plastic', 'trash']  # Названия ваших классов
 model = torchvision_models.resnet18(pretrained=False)
 model.fc = nn.Linear(model.fc.in_features, len(class_names))
-model.load_state_dict(torch.load('C:/Users/login/Desktop/trash/trash_classifier.pth', map_location=torch.device('cpu')))
+model.load_state_dict(torch.load('./trash_classifier.pth', map_location=torch.device('cpu')))
 model.eval()  # Перевод модели в режим оценки
 
 # Трансформация изображения

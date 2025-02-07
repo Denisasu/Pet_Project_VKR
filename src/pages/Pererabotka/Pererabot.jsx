@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image, Alert } from 'react-bootstrap';
+import { Image, Alert, Container } from 'react-bootstrap';
 import axios from 'axios';
 import styles from "./Pererabot.module.css";
 
@@ -102,8 +102,7 @@ function Pererabot() {
   };
 
   return (
-  <div className={styles.pererabotContainer}>
-    <div className={styles.container}>
+  <Container fluid className={styles.pererabotContainer}>
       <div className={styles.pererabotContent}>
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <h2 className={styles.title}>Переработка</h2>
@@ -152,8 +151,7 @@ function Pererabot() {
           </Alert>
         )}
       </div>
-    </div>
-  </div>
+  </Container>
 );
 }
 

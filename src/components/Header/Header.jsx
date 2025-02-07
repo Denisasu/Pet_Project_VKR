@@ -28,17 +28,14 @@ function Header() {
   const closeMenu = () => {
     setMenuOpen(false); // Закрываем меню
   };
-  //
-  const scrollToSection = (id) => {
-    const section = document.getElementById(id); // Найти секцию по ID
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' }); // Прокрутка с плавным эффектом
-      closeMenu(); // Закрыть меню (если мобильная версия)
-    }
+
+  const handleNavClick = (sectionId) => {
+    navigate('/', { state: { sectionId } }); // Переход на главную страницу с передачей ID секции
+    closeMenu(); // Закрыть меню (если мобильная версия)
   };
 
   return (
-    <Container>
+    <>
       <Navbar fixed="top" expand="lg" className="navbar-custom">
         <Container>
           <Navbar.Brand as={Link} to="/" style={{ display: 'flex', alignItems: 'center' }}>
@@ -47,10 +44,10 @@ function Header() {
           </Navbar.Brand>
 
           <Nav className="desktop-nav">
-            <Nav.Link onClick={() => scrollToSection('secone')}>Главная</Nav.Link>
-            <Nav.Link onClick={() => scrollToSection('project-container')}>О проекте</Nav.Link>
-            <Nav.Link onClick={() => scrollToSection('actuality-container')}>Актуальность</Nav.Link>
-            <Nav.Link onClick={() => scrollToSection('stages-container')}>Этапы</Nav.Link>
+            <Nav.Link onClick={() => handleNavClick('home-container')}>Главная</Nav.Link>
+            <Nav.Link onClick={() => handleNavClick('project-container')}>О проекте</Nav.Link>
+            <Nav.Link onClick={() => handleNavClick('actuality-container')}>Актуальность</Nav.Link>
+            <Nav.Link onClick={() => handleNavClick('stages-container')}>Этапы</Nav.Link>
           </Nav>
 
           <div className="menu-icon" onClick={toggleMenu}>
@@ -68,7 +65,7 @@ function Header() {
           </div>
         </Container>
       </Navbar>
-    </Container>
+    </>
   );
 }
 

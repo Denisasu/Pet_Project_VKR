@@ -1,30 +1,10 @@
-/* Общие стили */
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-* {
-    font-family: 'Montserrat Alternates', sans-serif;
-  }  
-
-body {
-    display: flex;  /* Включаем flexbox для body */
-    justify-content: center;  /* Центрируем по горизонтали */
-    align-items: center;  /* Центрируем по вертикали */
-    height: 100vh;  /* Высота страницы на весь экран */
-    margin: 0;  /* Убираем стандартные отступы */
-    font-family: 'Montserrat Alternates', sans-serif;
-}
-
 .registerContainer {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    padding: 0;
+    height: 100%;
+    margin-top: 20px;
 }
 
 .registerImage {

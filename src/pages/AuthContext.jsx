@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
+import PropTypes from 'prop-types';
 
 const AuthContext = createContext();
 
@@ -9,26 +10,27 @@ export const AuthProvider = ({ children }) => {
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
-  
   // Функция для входа
   const login = (userData) => {
     setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));
   };
 
-  // В AuthContext.js
+  // Функция для выхода
   const logout = () => {
     setUser(null); // Сбросим данные в контексте
     localStorage.removeItem('user'); // Удаляем данные пользователя из localStorage
   };
 
-
-
   return (
-    <AuthContext.Provider value={{ user, login, logout, setUser}}>
+    <AuthContext.Provider value={{ user, login, logout, setUser }}>
       {children}
     </AuthContext.Provider>
   );
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export const useAuth = () => useContext(AuthContext);
