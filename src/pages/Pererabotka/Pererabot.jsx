@@ -113,7 +113,7 @@ function Pererabot() {
                 <i className="fas fa-camera"></i> {/* Здесь иконка фотоаппарата */}
               </div>
               Загрузить изображение
-              <input id="fileInput" type="file"/>
+              <input id="fileInput" type="file" onChange={handleImageChange}/>
             </label>
           </div>
 

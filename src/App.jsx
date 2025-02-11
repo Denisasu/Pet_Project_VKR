@@ -12,10 +12,21 @@ import Register from './pages/Registers/Register';
 import PersonalAcc from './pages/PersonalAcc/PersonalAcc';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import ProtectedRoute from './pages/ProtectedRoute';
-import { AuthProvider } from './pages/AuthContext'; // Убедитесь, что путь правильныйd
+
+import { AuthProvider } from './context/AuthContext'; // Убедитесь, что путь правильный
 import Pererabot from './pages/Pererabotka/Pererabot';
 
 function App() {
+  // const { user } = useContext(AuthProvider);
+
+  // const ProtectedRoute = ({ children }) => {
+  //   return user ? children : <Navigate to="/login" />;
+  // };
+
+  // const AdminRoute = ({ children }) => {
+  //   return user && user.role === 'admin' ? children : <Navigate to="/" />;
+  // };
+
   return (
     <AuthProvider>
       <Header />
@@ -30,6 +41,7 @@ function App() {
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />
           <Route path="/personalacc" element={<ProtectedRoute><PersonalAcc /></ProtectedRoute>} />
+          
         </Routes>
       </Container>
       <Footer />

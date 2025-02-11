@@ -151,12 +151,17 @@ async def save_and_crop_image(file: UploadFile):
 # CRUD для Application
 @app.post("/applications/", response_model=schemas.Application)
 def create_application(application: schemas.ApplicationCreate, db: Session = Depends(get_db)):
-    print(application.dict())
-    db_application = models.Application(**application.dict())
+    # Получаем пользователя по его email
+    db_user = db.query(models.User).filter(models.User.email == application.email).first()
+    if not db_user:
+        raise HTTPException(status_code=404, detail="Пользователь не найден")
+    
+    db_application = models.Application(**application.dict(), user_id=db_user.id)
     db.add(db_application)
     db.commit()
     db.refresh(db_application)
     return db_application
+
 
 @app.get("/applications/", response_model=list[schemas.Application])
 def get_applications(
@@ -201,15 +206,25 @@ def get_applications_by_email(email: str, db: Session = Depends(get_db)):
     applications = db.query(models.Application).filter(models.Application.email == email).all()
     return applications
 
+
 # CRUD для Message
 @app.post("/messages/", response_model=schemas.Message)
 def create_message(message: schemas.MessageCreate, db: Session = Depends(get_db)):
-    print(message)
-    db_message = models.Message(**message.dict())
-    db.add(db_message)
-    db.commit()
-    db.refresh(db_message)
-    return db_message
+    try:
+        db_user = db.query(models.User).filter(models.User.email == message.email).first()
+        if not db_user:
+            raise HTTPException(status_code=404, detail="Пользователь не найден")
+
+        db_message = models.Message(**message.dict(), user_id=db_user.id)
+        db.add(db_message)
+        db.commit()
+        db.refresh(db_message)
+        return db_message
+    except Exception as e:
+        print(f"Ошибка: {e}")
+        raise HTTPException(status_code=500, detail="Ошибка на сервере")
+
+
 
 @app.get("/messages/{message_id}", response_model=schemas.Message)
 def get_message(message_id: int, db: Session = Depends(get_db)):
@@ -342,17 +357,28 @@ async def send_verification_code(email_request: EmailRequest, db: Session = Depe
     if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
         raise HTTPException(status_code=400, detail="Некорректный e-mail")
 
+    # Проверяем, существует ли пользователь с таким email
+    existing_user = db.query(models.User).filter(models.User.email == email).first()
+    if not existing_user:
+        raise HTTPException(status_code=400, detail="Пользователь с таким email не существует")
+
     # Генерируем код
     code = generate_verification_code()
 
-    # Сохраняем в базу данных
-    verification_entry = models.EmailVerification(email=email, code=code, expires_at=datetime.utcnow() + timedelta(minutes=10))
+    # Сохраняем в базу данных с привязкой к user_id
+    verification_entry = models.EmailVerification(
+        email=email,
+        code=code,
+        expires_at=datetime.utcnow() + timedelta(minutes=10),
+        user_id=existing_user.id  # Привязываем к пользователю
+    )
     db.add(verification_entry)
     db.commit()
 
-    # Сохраняем код в базе данных или куда необходимо
+    # Отправляем код на email
     await send_email(email_request.email, code)
     return {"message": "Код подтверждения отправлен на ваш email"}
+
 
 #Проверим код на соответствие и срок действия.
 @app.post("/reset-password/")
@@ -390,7 +416,7 @@ async def upload_image(file: UploadFile):
 class_names = ['cardboard', 'glass', 'metal', 'paper', 'plastic', 'trash']  # Названия ваших классов
 model = torchvision_models.resnet18(pretrained=False)
 model.fc = nn.Linear(model.fc.in_features, len(class_names))
-model.load_state_dict(torch.load('./trash_classifier.pth', map_location=torch.device('cpu')))
+model.load_state_dict(torch.load('C:/Users/user/Desktop/Git Uploads/Pet_Project_VKR/Pet_Project_VKR_clean/app/trash_classifier.pth', map_location=torch.device('cpu')))
 model.eval()  # Перевод модели в режим оценки
 
 # Трансформация изображения

@@ -4,7 +4,7 @@ import logo from '/logo.svg';
 import menuicon from '../../imgs/header-menu/Menu-icon.svg';
 import menuiconexit from '../../imgs/header-menu/Menu-icon-exit.svg';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../pages/AuthContext'; // Подключаем контекст аутентификации
+import { useAuth } from '../../context/AuthContext'; // Подключаем контекст аутентификации
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Header.css';
 
@@ -51,16 +51,16 @@ function Header() {
           </Nav>
 
           <div className="menu-icon" onClick={toggleMenu}>
-            <img src={menuicon} height={40} width={40} alt="Logo" />
+            <img src={menuicon} height={40} width={40} alt="Menu Icon" />
           </div>
           <div className={`menu ${isMenuOpen ? 'open' : ''}`}> 
-            <img className='menu-exit' src={menuiconexit} height={40} width={40} alt="Logo" onClick={closeMenu} /> 
+            <img className='menu-exit' src={menuiconexit} height={40} width={40} alt="Close Menu Icon" onClick={closeMenu} /> 
             <Nav className="flex-column">
               <Nav.Link as={Link} to="/" onClick={closeMenu}>Главная</Nav.Link>
               <Nav.Link as={Link} to="/statistics" onClick={closeMenu}>Статистика</Nav.Link>
               <Nav.Link as={Link} to="/contacts" onClick={closeMenu}>Контакты</Nav.Link>
               <Nav.Link as={Link} to="/analyze" onClick={closeMenu}>Анализ</Nav.Link>
-              <Nav.Link as={Link} to="/login" onClick={closeMenu}>Личный кабинет</Nav.Link>
+              <Nav.Link onClick={handleIconClick}>Личный кабинет</Nav.Link>
             </Nav>
           </div>
         </Container>

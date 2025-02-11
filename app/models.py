@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, LargeBinary, DateTime, Float, Fo
 from sqlalchemy.sql import func
 from datetime import datetime, timedelta
 from .database import Base
+from sqlalchemy import Boolean
 from sqlalchemy.orm import relationship
 
 class Application(Base):
@@ -27,6 +28,9 @@ class Message(Base):
     name = Column(String(100), nullable=False)
     message = Column(String, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)  # Связь с пользователем
+
+    user = relationship("User", back_populates="messages")  # Связь с пользователем
 
 class User(Base):
     __tablename__ = "users"
@@ -38,8 +42,13 @@ class User(Base):
     created_at = Column(DateTime(timezone=True), default=func.now(), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     city = Column(String(255), nullable=False)
-    applications = relationship("Application", back_populates="user")  # Связь с заявками
     photo_url = Column(String, nullable=True)  # Поле для URL фотографии
+
+
+    applications = relationship("Application", back_populates="user")  # Связь с заявками
+    messages = relationship("Message", back_populates="user")
+    email_verifications = relationship("EmailVerification", back_populates="user")
+    
     
 class EmailVerification(Base):
     __tablename__ = "email_verifications"
@@ -49,4 +58,7 @@ class EmailVerification(Base):
     code = Column(String, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     expires_at = Column(DateTime, nullable=False, default=lambda: datetime.datetime.utcnow() + datetime.timedelta(minutes=10))
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)  # Связь с пользователем
+
+    user = relationship("User", back_populates="email_verifications")  # Связь с пользователем
 

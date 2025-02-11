@@ -23,10 +23,9 @@ body {
 
 /* Установка шрифта и цвета фона */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Montserrat Alternates', sans-serif;
   background-color: #3EB8BD;
   color: #000000; /* Изменено на чёрный для лучшей читабельности */
-  font-family: 'Poppins', sans-serif;
   overflow: auto;
   display: flex;
   justify-content: center;

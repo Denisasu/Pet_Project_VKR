@@ -1,4 +1,3 @@
-
 /* Основной контейнер */
 .personal-acc-container {
   display: flex;
@@ -160,6 +159,7 @@
   background-color: rgba(10, 112, 117, 0.49);
   width: 900px; 
   height: 100%;
+  color: white; 
 }
 
 /* Заголовок таблицы */
@@ -209,7 +209,7 @@
 /* Правая колонка (пользовательская информация) */
 .right-column {
   flex: 1; 
-  
+  color: white; 
   padding: 20px; /* Уменьшаем внутренние отступы */
   border-radius: 12px;
   background-color: rgba(10, 112, 117, 0.49);
@@ -262,3 +262,196 @@
 .feedback-icon:hover {
   background-color: #14BBC3;
 }
+
+
+
+
+
+/* Модальное окно */
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 55px;
+  color: white;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.close-btn:hover {
+  color: #0A7075;
+}
+
+
+.modal-form-title {
+  font-size: 35px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #fff; /* Цвет текста */
+}
+
+.custom-modal .modal-dialog {
+  max-width: 50%;
+  width: 50%;
+  max-height: 70vh; 
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Закругленные углы для содержимого */
+.custom-modal .modal-content {
+  display: flex;
+  flex-direction: column;
+  border-radius: 70px;
+  overflow: hidden;
+}
+
+/* Растягиваем тело модального окна */
+.modal-body {
+  padding: 0; /* Убираем лишние отступы */
+  background-color: #059aa1;
+  color: #fff;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+/* Контейнер с картинкой и формой */
+.modal-content-wrapper {
+  display: flex; /* Включаем flex */
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  gap: 30px;
+}
+
+/* Левая часть с картинкой */
+.modal-image-wrapper {
+  display: flex;
+  height: 100%; /* Полная высота */
+}
+
+.modal-img {
+  max-width: 400px;
+  object-fit: cover; /* Чтобы картинка красиво вписывалась */
+}
+
+/* Правая часть с формой */
+.modal-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: right; /* Выравниваем форму к верхнему краю */
+  align-items: right; /* Оставляем элементы слева внутри формы */
+  height: 100%;
+}
+
+/* Обновленные input, textarea и другие элементы формы */
+.inputDiv {
+  position: relative;
+  display: grid;
+  grid-template-columns: 7% 93%;
+  margin: 40px 0;
+  padding: 5px 0;
+  border-bottom: 2px solid #ffffff;
+}
+
+.inputWrapper h5 {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ffffff;
+  font-size: 18px;
+  transition: .3s;
+}
+
+.inputDiv:before,
+.inputDiv:after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  width: 0%;
+  height: 2px;
+  background-color: #ffffff;
+  transition: .4s;
+}
+
+
+.inputDiv.focus:before,
+.inputDiv.focus:after {
+  width: 100%;
+  background-color: #0A7075;
+}
+
+/* Когда поле в фокусе, заголовок поднимается */
+.inputDiv.focus .inputWrapper h5 {
+  top: -10px; /* Поднимаем немного выше */
+  font-size: 15px;
+  color: #0A7075; /* Цвет изменяется, чтобы соответствовать стилям */
+}
+
+
+
+.inputDiv .icon {
+  position: relative;  /* добавляем относительное позиционирование */
+  left: -20px;         /* сдвигаем влево */
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.inputDiv.focus .icon i {
+  color: #0A7075;
+}
+
+.inputDiv .inputWrapper input,
+.inputDiv .inputWrapper textarea {
+  padding-top: 30px; /* Добавляем отступ сверху, чтобы избежать перекрытия */
+  padding-bottom: 10px; /* Немного снизу */
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0.5rem 0.7rem;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+
+.buttonsWrapper .btn {
+  display: block;
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  outline: none;
+  border: none;
+  background-image: linear-gradient(to right, #0A7075, #0f8086, #18abb3);
+  background-size: 200%;
+  font-size: 1.2rem;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 1rem 0;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.buttonsWrapper .btn:hover {
+  background-position: right;
+}
+
+
+

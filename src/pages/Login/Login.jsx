@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
-import { useAuth } from '../AuthContext'; // Импорт контекста аутентификации
+import { useAuth } from "../../context/AuthContext"; // Импорт контекста аутентификации
 import styles from './Login.module.css'; 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import avatar from '../../imgs/login/avatar.png';

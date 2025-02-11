@@ -13,6 +13,7 @@ class Application(BaseModel):
     description: str
     status: str  # Добавлено поле
     created_at: datetime  # Добавлено поле
+    user_id: int
 
     class Config:
         from_attributes = True
@@ -40,6 +41,7 @@ class Message(BaseModel):
     email: str
     name: str
     message: str
+    user_id: int
 
     class Config:
         from_attributes = True
@@ -74,8 +76,10 @@ class UserUpdate(BaseModel):
 class EmailVerificationCreate(BaseModel):
     email: EmailStr
     code: str
+    user_id: int 
 
 class EmailVerificationCheck(BaseModel):
     email: EmailStr
     code: str
     new_password: str
+    user_id: int 
