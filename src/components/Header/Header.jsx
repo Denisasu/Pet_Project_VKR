@@ -58,7 +58,6 @@ function Header() {
             <Nav className="flex-column">
               <Nav.Link as={Link} to="/" onClick={closeMenu}>Главная</Nav.Link>
               <Nav.Link as={Link} to="/statistics" onClick={closeMenu}>Статистика</Nav.Link>
-              <Nav.Link as={Link} to="/contacts" onClick={closeMenu}>Контакты</Nav.Link>
               <Nav.Link as={Link} to="/analyze" onClick={closeMenu}>Анализ</Nav.Link>
               <Nav.Link onClick={handleIconClick}>Личный кабинет</Nav.Link>
             </Nav>

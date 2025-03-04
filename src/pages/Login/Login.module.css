@@ -24,6 +24,8 @@
     align-items: center;
     text-align: center;
     z-index: 3;
+    margin-top: 0;
+    margin-left: -5.5rem;  /* Сдвиг влево */
 }
 
 .img img {
@@ -32,7 +34,9 @@
 }
 
 form {
-    width: 360px;
+    width: 450px;
+    margin-top: 0;  /* Убедитесь, что сверху нет лишнего отступа */
+    margin-bottom: 1rem;  /* Уменьшите нижний отступ */
 }
 
 form img {

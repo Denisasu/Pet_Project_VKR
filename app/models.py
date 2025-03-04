@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from .database import Base
 from sqlalchemy import Boolean
 from sqlalchemy.orm import relationship
+from geoalchemy2 import Geometry
 
 class Application(Base):
     __tablename__ = "applications"
@@ -11,8 +12,7 @@ class Application(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, nullable=False)
     photo = Column(LargeBinary, nullable=False)
-    longitude = Column(Float, nullable=False)
-    latitude = Column(Float, nullable=False)
+    location = Column(Geometry("POINT"), nullable=False)  # Храним геопозицию как точку
     description = Column(String, nullable=False)
     created_at = Column(DateTime, default=func.now()) 
     status = Column(String(50), default='На рассмотрении')
@@ -42,9 +42,6 @@ class User(Base):
     created_at = Column(DateTime(timezone=True), default=func.now(), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     city = Column(String(255), nullable=False)
-    photo_url = Column(String, nullable=True)  # Поле для URL фотографии
-
-
     applications = relationship("Application", back_populates="user")  # Связь с заявками
     messages = relationship("Message", back_populates="user")
     email_verifications = relationship("EmailVerification", back_populates="user")

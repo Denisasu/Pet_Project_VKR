@@ -4,7 +4,6 @@ import Footer from './components/Footer/Footer';
 import { Routes, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap'
 import Home from './pages/Home/Home';
-import Contacts from './pages/Сontacts/Contacts';
 import Statistics from './pages/Statistics/Statistics';
 import Zayvka from './pages/Zayavka/Zayvka';
 import Login from './pages/Login/Login';
@@ -34,7 +33,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/statistics" element={<Statistics />} />
-          <Route path="/contacts" element={<Contacts />} />
           <Route path="/zayvka" element={<Zayvka />} />
           <Route path="/analyze" element={<Pererabot />} />
           <Route path="/login" element={<Login />} />

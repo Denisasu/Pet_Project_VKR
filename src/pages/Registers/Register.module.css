@@ -28,6 +28,7 @@
     justify-content: center;
     text-align: left;
     width: 70%; /* Ширина контейнера для формы */
+    margin-right: -7rem;
 }
 
 .registerContent h2 {
@@ -196,4 +197,20 @@
 
 .registerLink span:hover {
     color: #0A7075;
+}
+
+.title {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1rem;  /* Размер шрифта, можно уменьшить, если не влезает */
+    text-align: center;
+    position: relative;
+    margin: 2rem 0;
+    word-wrap: break-word; /* Если текст слишком длинный, он будет переноситься */
+    
+}
+form {
+    width: 550px;
+    margin-top: 0;  /* Убедитесь, что сверху нет лишнего отступа */
+    margin-bottom: 1rem;  /* Уменьшите нижний отступ */
 }
