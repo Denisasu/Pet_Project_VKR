@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Container} from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./home.css";
 import statisticsImg from "../../imgs/statistics.png";
@@ -7,11 +7,8 @@ import analysisImg from "../../imgs/analysis.png";
 import applicationImg from "../../imgs/application.png";
 import profileImg from "../../imgs/profile.png";
 import One_carusel from "../../components/One_carusel";
+import { CATEGORY_COLORS, getCategoryName } from "../../constants/mapSettings";
 
-import photo_1 from "../../imgs/actual-slider/images/1_photo.png";
-import photo_2 from "../../imgs/actual-slider/images/2_photo.png";
-import photo_3 from "../../imgs/actual-slider/images/3_photo.png";
-import photo_4 from "../../imgs/actual-slider/images/4_photo.png";
 import GeocodeMap from "../../components/layout/Geocode-map";
 import config from '../../config/config.json'
 import { YMaps } from "@pbe/react-yandex-maps";
@@ -54,7 +51,7 @@ function Home() {
               <Button onClick={handleClick} className="btn-title">
                 Очистить природу
               </Button>
-              <Button onClick={handleClick} className="btn-title two">
+              <Button href="#project-container" className="btn-title two">
                 О проекте
               </Button>
             </div>
@@ -77,22 +74,22 @@ function Home() {
         <div className="project-functionality">
           <h2>Функционал</h2>
           <div className="buttons-container">
-            <button className="function-button">
+            <a href="/Statistics.jsx" className="function-button">
               <img src={statisticsImg} alt="Статистика" />
               Статистика
-            </button>
-            <button className="function-button">
+            </a>
+            <a href="/analyze" className="function-button">
               <img src={analysisImg} alt="Анализ" />
               Анализ вторсырья
-            </button>
-            <button className="function-button">
+            </a>
+            <a href="/Zayvka" className="function-button">
               <img src={applicationImg} alt="Подача заявки" />
               Подача заявки
-            </button>
-            <button className="function-button">
+            </a>
+            <a href="/Login" className="function-button">
               <img src={profileImg} alt="Личный кабинет" />
               Личный кабинет
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -187,14 +184,31 @@ function Home() {
         </div>
       </div>
 
-      {/* Страница 4 - "Карта с пунтками сбора вторсырья" с прокруткой */}
+      {/* Страница 4 - "Карта с пунктами сбора вторсырья" */}
       <div className="maps-container" id="maps-container">
         <div className="maps-header">
           <h1>Пункты сбора вторсырья</h1>
         </div>
-        <YMaps className="ymap" query={{apikey: config.YANDEX_API_KEY}}>
-          <GeocodeMap/>
-        </YMaps>
+        
+        <div className="map-container">
+          <YMaps query={{ apikey: config.YANDEX_API_KEY }}>
+            <GeocodeMap />
+          </YMaps>
+        </div>
+        
+        <div className="maps-info-metkas">
+          <div className="metkas">
+            {Object.entries(CATEGORY_COLORS).map(([category, color]) => (
+              <div key={category} className="metka">
+                <span 
+                  className="metka-color" 
+                  style={{ backgroundColor: color }}
+                />
+                <p>{getCategoryName(category)}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Страница 5 - "Этапы" с прокруткой */}
@@ -211,8 +225,8 @@ function Home() {
               <h3>Регистрация Личного кабинета</h3>
               <p>Перейти на регистрацию можно по кнопке ниже.</p>
               <Button
-                className="btn-title"
-                style={{ backgroundColor: "#15B3B8" }}
+                href="/Register"
+                className="btn-title main"
               >
                 Регистрация
               </Button>
@@ -232,8 +246,8 @@ function Home() {
                 Заполните и отправьте её.
               </p>
               <Button
-                className="btn-title"
-                style={{ backgroundColor: "#15B3B8" }}
+                href="/PersonalAcc"
+                className="btn-title main"
               >
                 Заявка
               </Button>
@@ -254,8 +268,8 @@ function Home() {
                 переработку и подскажет куда его необходимо сдать.
               </p>
               <Button
-                className="btn-title"
-                style={{ backgroundColor: "#15B3B8" }}
+                href="/Pererabot"
+                className="btn-title main"
               >
                 Анализ
               </Button>
@@ -276,8 +290,8 @@ function Home() {
                 сотрудники.
               </p>
               <Button
-                className="btn-title"
-                style={{ backgroundColor: "#15B3B8" }}
+                href="/PersonalAcc"
+                className="btn-title main"
               >
                 Личный кабинет
               </Button>

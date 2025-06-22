@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import logo from '/logo.svg';
-import menuicon from '../../imgs/header-menu/Menu-icon.svg';
-import menuiconexit from '../../imgs/header-menu/Menu-icon-exit.svg';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext'; // Подключаем контекст аутентификации
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,14 +12,6 @@ function Header() {
   const navigate = useNavigate();
   const { user } = useAuth(); // Получаем данные пользователя из контекста
   const [isMenuOpen, setMenuOpen] = useState(false); // Состояние для управления меню
-
-  const handleIconClick = () => {
-    if (user) {
-      navigate('/personalacc'); // Переход в личный кабинет
-    } else {
-      navigate('/login'); // Переход на страницу входа
-    }
-  };
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen); // Переключаем состояние меню
@@ -47,6 +39,7 @@ function Header() {
             <Nav.Link onClick={() => handleNavClick('home-container')}>Главная</Nav.Link>
             <Nav.Link onClick={() => handleNavClick('project-container')}>О проекте</Nav.Link>
             <Nav.Link onClick={() => handleNavClick('actuality-container')}>Актуальность</Nav.Link>
+            <Nav.Link onClick={() => handleNavClick('maps-container')}>Пункты сбора</Nav.Link>
             <Nav.Link onClick={() => handleNavClick('stages-container')}>Этапы</Nav.Link>
           </Nav>
 

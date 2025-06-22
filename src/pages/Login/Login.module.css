@@ -252,3 +252,142 @@ form img {
 .registerLink span:hover {
     color: #0A7075;
 }
+
+/*Адаптация*/
+
+@media (max-width: 1249px) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-gap: 3rem;
+    padding: 0 1rem;
+    justify-items: center;
+  }
+
+  .img {
+    display: none; /* Убираем изображение на узких экранах */
+  }
+
+  .loginContent {
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  form {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .loginContent h2 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .inputWrapper h5 {
+    font-size: 16px;
+  }
+
+  .inputDiv .inputWrapper input {
+    font-size: 1rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .btn {
+    font-size: 1rem;
+    height: 45px;
+  }
+
+  .registerLink {
+    font-size: 0.85rem;
+  }
+
+  .wave {
+    display: none; /* Волна мешает восприятию на маленьком экране */
+  }
+
+  .loginContent h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 475px) {
+  .container {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+    grid-gap: 2rem;
+  }
+
+  .img img,
+  .wave {
+    display: none;
+  }
+
+  .loginContent {
+    margin-left: 0;
+    justify-content: center;
+    padding: 0 0.5rem;
+  }
+
+  form {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  .loginContent h2 {
+    font-size: 1.8rem;
+    margin: 10px 0 20px;
+  }
+
+  .avatarWrapper img {
+    width: 70px;
+  }
+
+  .inputDiv {
+    margin: 15px 0;
+    grid-template-columns: 10% 90%;
+  }
+
+  .inputWrapper h5 {
+    font-size: 14px;
+    left: 8px;
+  }
+
+  .inputDiv .inputWrapper input {
+    font-size: 1rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .checkboxWrapper label,
+  .optionsWrapper a,
+  .registerLink {
+    font-size: 0.85rem;
+  }
+
+  .optionsWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin: 10px 0;
+  }
+
+  .btn {
+    font-size: 1rem;
+    height: 42px;
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .registerLink {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+
+  .registerLink span {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 0.9rem;
+  }
+}
+

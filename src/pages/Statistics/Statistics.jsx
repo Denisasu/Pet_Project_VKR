@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Map, YMaps } from '@pbe/react-yandex-maps';
+import { RECYCLING_POINTS } from '../../data/recyclingPoints'; // Импортируем массив пунктов переработки
 import styles from "./Statistics.module.css";
 
 function Statistics() {
@@ -32,16 +33,16 @@ function Statistics() {
             <Row className={styles.infoBlock}>
               <Col>
                 <div className={styles.section}>
-                  <div className={styles.sectionTitle}>Колличество пользователей (переделать)</div>
-                  <div className={styles.sectionValue}>{statistics.total_applications}</div>
-                </div>
-                <div className={styles.section}>
-                  <div className={styles.sectionTitle}>Количество отработанных заявок (переделать)</div>
+                  <div className={styles.sectionTitle}>Колличество пользователей</div>
                   <div className={styles.sectionValue}>{statistics.total_users}</div>
                 </div>
                 <div className={styles.section}>
-                  <div className={styles.sectionTitle}>Колличество пунктов переработки</div>
-                  <div className={styles.sectionValue}>{statistics.completed_applications}</div>
+                  <div className={styles.sectionTitle}>Количество заявок</div>
+                  <div className={styles.sectionValue}>{statistics.total_applications}</div>
+                </div>
+                <div className={styles.section}>
+                  <div className={styles.sectionTitle}>Колличество пунктов сбора вторсырья</div>
+                  <div className={styles.sectionValue}>{RECYCLING_POINTS.length}</div>
                 </div>
               </Col>
             </Row>

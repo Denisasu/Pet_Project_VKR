@@ -1,68 +1,59 @@
-import { FullscreenControl, Map, Placemark, useYMaps } from "@pbe/react-yandex-maps";
-import { useState } from "react";
+import { FullscreenControl, Map, Placemark } from "@pbe/react-yandex-maps";
+import { useMemo } from "react";
 import styled from "styled-components";
+import { RECYCLING_POINTS } from "../../data/recyclingPoints";
+import { MAP_CENTER, MAP_ZOOM, CATEGORY_COLORS } from "../../constants/mapSettings";
 
 const MapStyled = styled(Map)`
-width: 100%;
-height: 700px;
-margin-top: 80px;
+  width: 100%;
+  height: 700px;
+  margin-top: 20px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 `;
 
-const CENTER = [53.34881098009905, 83.77624821208886];
-const ZOOM = 12;
-
 const GeocodeMap = () => {
-    const [coordinates, setCoordinates] = useState(null);
-    const [address, setAddress] = useState(null);
+  const placemarks = useMemo(() => {
+    return RECYCLING_POINTS.map(point => ({
+      ...point,
+      options: {
+        preset: `islands#${point.category}Icon`,
+        iconColor: CATEGORY_COLORS[point.category] || '#000'
+      }
+    }));
+  }, []);
 
-    const ymaps = useYMaps(["geocode"]);
-
-    const handleClickMap = (e) => {
-        const coords = e.get("coords");
-
-        if (coords) {
-            setCoordinates(coords);
-        }
-
-        ymaps.geocode(coords).then((result) => {
-            const foundAddress = handleGeoResult(result);
-            
-            if (foundAddress) setAddress(foundAddress);
-        }).catch(() => {
-            console.error("Ошибка");
-            setAddress(null);
-        });
-    };
-
-    function handleGeoResult(result) {
-        const firstGeoObject = result.geoObjects.get(0);
-
-        if (firstGeoObject) {
-            const properties = firstGeoObject.properties;
-
-            const location = String(properties.get("description", {}));
-            const route = String(properties.get("name", {}));
-
-            const foundAddress = {
-                location,
-                route,
-            };
-            return foundAddress;
-        }
-    }
-
-    return (
-        <MapStyled
-            defaultState={{
-                center: CENTER,
-                zoom: ZOOM,
-            }}
-            onClick={(e) => handleClickMap(e)}
-        >
-            {coordinates && <Placemark geometry={coordinates} />}
-            <FullscreenControl />
-        </MapStyled>
-    );
+  return (
+    <MapStyled
+      defaultState={{
+        center: MAP_CENTER,
+        zoom: MAP_ZOOM,
+      }}
+      modules={["geoObject.addon.balloon"]}
+    >
+      {placemarks.map(point => (
+        <Placemark
+          key={point.id}
+          geometry={point.coords}
+          properties={{
+            balloonContentHeader: point.title,
+            balloonContentBody: `
+              <div style="padding: 10px;">
+                <p><strong>Адрес:</strong> ${point.address}</p>
+                <p><strong>Режим работы:</strong> ${point.schedule}</p>
+                <p><strong>Принимают:</strong> ${point.materials.join(", ")}</p>
+                <p><strong>Телефон:</strong> ${point.phone}</p>
+              </div>
+            `,
+            hintContent: point.title
+          }}
+          options={point.options}
+        />
+      ))}
+      <FullscreenControl />
+    </MapStyled>
+  );
 };
 
 export default GeocodeMap;

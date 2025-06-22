@@ -3,11 +3,14 @@
 .navbar-custom {
   background-color: #0A7075; /* Цвет шапки */
   color: #ffffff; /* Цвет текста */
+  
   height: 60px; /* Высота шапки */
   padding: 0 20px; /* Отступы по бокам */
   border-radius: 30px; /* Закругление краев */
-  width: 1250px;
+  width: 100%;
+  max-width: 1250px;
   margin: 15px auto; /* Центрирование контейнера */
+  
   display: flex;
   align-items: center; /* Центрирование элементов по вертикали */
   justify-content: space-between; /* Равномерное распределение элементов */
@@ -83,29 +86,34 @@ img[alt="UserLogo"] {
 }
 
 .menu {
-  display: none; /* Меню скрыто по умолчанию */
   position: fixed;
   top: 0;
   right: 0;
   width: 250px;
   height: 100%;
-  background-color:  #0A7075;
+  background-color: #0A7075;
+  box-shadow: -4px 0 10px rgba(0,0,0,0.2);
   color: #fff;
+  display: none;
   flex-direction: column;
   justify-content: flex-start;
   padding-top: 50px;
-  transition: transform 0.3s ease; /* Плавная анимация */
+  transition: transform 0.3s ease;
 }
 
 .menu.open {
   display: flex;
-  transform: translateX(0); /* Включаем меню */
-  align-items: flex-end;
+  transform: translateX(0);
+  align-items: flex-start;
+  position: fixed;
 }
 
-.menu-exit{
-  margin-bottom: 20px;
+.menu-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
   cursor: pointer;
+  z-index: 2;
 }
 
 .menu-item {
@@ -157,4 +165,65 @@ img[alt="UserLogo"] {
 
 .close-button{
   color: #fff;
+}
+
+/* Адаптация */
+
+@media (max-width: 1014px) {
+  .navbar-custom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Размещает логотип слева, бургер справа */
+    align-items: center;
+    padding: 10px 15px;
+    flex-wrap: nowrap; /* ВАЖНО: запрещает перенос элементов вниз */
+  }
+
+  .navbar-brand{
+    margin: 0;
+  }
+  .desktop-nav {
+    display: none;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer h4, .footer h5 {
+    font-size: 16px;
+  }
+
+  .logo-f {
+    width: 120px;
+  }
+}
+
+/* Мобильные */
+@media (max-width: 480px) {
+  .navbar-custom {
+    padding: 10px;
+  }
+
+  .menu .nav-link {
+    font-size: 16px;
+  }
+
+  .footer h4, .footer h5 {
+    font-size: 14px;
+  }
+
+  .logo-f {
+    width: 100px;
+  }
+
+  .bottom-footer h6 {
+    font-size: 12px;
+  }
 }

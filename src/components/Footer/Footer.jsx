@@ -9,14 +9,14 @@ import './Footer.css';
 function Footer() {
   return (
     <footer className="footer">
-      <Container >
+      <Container className='footer-container'>
         <Row>
           <Col md={2} sm={6}>
             <a href="/"><img className='logo-f' src={logo} alt="Защитник природы - логотип"/></a>
           </Col>
           <Col md={4} sm={6}>
             <h5>Меню</h5>
-            <ul className="footer-links">
+            <ul className="footer-links one">
               <li><a href="/">Главная</a></li>
               <li><a href="/statistics">Статистика</a></li>
               <li><a href="/contacts">Обратная связь</a></li>
@@ -44,17 +44,10 @@ function Footer() {
           </Col>
         </Row>
         <Row>
-            <Col md={8} sm={6} style={{display: 'flex', alignItems: 'flex-end'}}>
+            <Col md={8} sm={6} style={{display: 'flex', alignItems: 'flex-end', paddingTop: '20px',}}>
                 <div className="bottom-footer">   
                     <h6>@ Все права защищены 2024-2025</h6>
                 </div>
-            </Col>
-            <Col md={4} sm={6} >
-                <ul className="social-links">
-                    <li><a href="/">Политика конфиденциальности</a></li>
-                    <li><a href="/">Политика использования cookie</a></li>
-                    <li><a href="/">Обработка персональных данных</a></li>
-                </ul>
             </Col>
         </Row>
       </Container>

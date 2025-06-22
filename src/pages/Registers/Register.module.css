@@ -31,7 +31,7 @@
     margin-right: -7rem;
 }
 
-.registerContent h2 {
+.title{
     margin: 15px 0;
     color: #ffffff;
     font-weight: 700;
@@ -213,4 +213,151 @@ form {
     width: 550px;
     margin-top: 0;  /* Убедитесь, что сверху нет лишнего отступа */
     margin-bottom: 1rem;  /* Уменьшите нижний отступ */
+}
+
+
+/* ===================== 1024px ===================== */
+@media (max-width: 1024px) {
+  .registerContainer {
+    margin-top: 40px;
+  }
+
+  .registerImage {
+    width: 40%;
+    margin-left: 3rem;
+  }
+
+  .container {
+    padding: 2rem;
+    border-radius: 50px;
+    gap: 2rem;
+  }
+
+  .registerContent {
+    width: 60%;
+    margin-right: 0;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+}
+
+/* ===================== 600px ===================== */
+@media (max-width: 991px) {
+  .registerContainer {
+    flex-direction: column;
+    margin-top: 50px;
+    padding: 0 1rem;
+  }
+
+  .registerImage {
+    display: none;
+  }
+
+  .container {
+    flex-direction: column;
+    border-radius: 30px;
+    padding: 1rem;
+  }
+
+  .registerContent {
+    width: 100%;
+    justify-content: center;
+    margin: 0;
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  form {
+    width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  .inputDiv {
+    margin: 15px 0;
+    grid-template-columns: 10% 90%;
+  }
+
+  .inputWrapper {
+    height: 48px;
+  }
+
+  .inputWrapper h5 {
+    font-size: 14px;
+    left: 8px;
+  }
+
+  .inputDiv .inputWrapper input {
+    font-size: 1rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .btn {
+    font-size: 1rem;
+    height: 44px;
+    margin-top: 1rem;
+  }
+
+  .registerLink {
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  .registerLink span {
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-top: 4px;
+  }
+}
+
+/* ===================== 400px ===================== */
+@media (max-width: 474px) {
+  .registerContainer {
+    padding: 0 0.5rem;
+  }
+
+  .container {
+    padding: 0.5rem;
+    border-radius: 20px;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .inputDiv {
+    margin: 12px 0;
+    grid-template-columns: 12% 88%;
+  }
+
+  .inputWrapper h5 {
+    font-size: 12px;
+    left: 6px;
+  }
+
+  .inputDiv .inputWrapper input {
+    font-size: 0.95rem;
+  }
+
+  .btn {
+    height: 40px;
+    font-size: 0.95rem;
+  }
+
+  .registerLink {
+    font-size: 0.75rem;
+  }
+
+  .registerLink span {
+    font-size: 0.8rem;
+  }
 }

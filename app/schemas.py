@@ -10,13 +10,19 @@ class Location(BaseModel):
     type: str  # теперь строка для типа геометрии
     coordinates: List[float]
 
+class Status(BaseModel):
+    id: int
+    name: str
+
+    class Config:
+        orm_mode = True
+
 class Application(BaseModel):
     id: int
     photo: bytes
-    email: str
     location: Location
     description: str
-    status: str  # Добавлено поле
+    status_id: int  # Добавлено поле
     created_at: datetime  # Добавлено поле
     user_id: int
 
@@ -42,17 +48,16 @@ class Application(BaseModel):
 
 class ApplicationCreate(BaseModel):
     photo: bytes
-    email: str
     location: Location 
     description: str
+    user_id: int
+    status_id: int
 
 class UpdateStatus(BaseModel):
-    status: str
+    status_id: int
 
 class Message(BaseModel):
     id: int
-    email: str
-    name: str
     message: str
     user_id: int
 
@@ -60,18 +65,22 @@ class Message(BaseModel):
         from_attributes = True
 
 class MessageCreate(BaseModel):
-    email: str
-    name: str
     message: str
+    user_id: int
 
 class UserBase(BaseModel):
     email: EmailStr
     first_name: Optional[str] = None  # Добавлено поле для имени
-    city: Optional[str] = None
     photo_url: Optional[str] = None 
+    verification_code: Optional[str] = None  # Новое поле
+    verification_created_at: Optional[datetime] = None  # Новое поле
+    verification_expires_at: Optional[datetime] = None  # Новое поле
 
-class UserCreate(UserBase):
-    password: str  # Поле для пароля
+class UserCreate(BaseModel):
+    email: EmailStr
+    password: str  # Поле для пароля обязательно
+    first_name: Optional[str] = None
+    photo_url: Optional[str] = None
 
 class User(UserBase):
     id: int
@@ -81,16 +90,15 @@ class User(UserBase):
 
 class UserUpdate(BaseModel):
     first_name: Optional[str] = None
-    city: Optional[str] = None
     email: Optional[EmailStr] = None
     photo_url: Optional[UploadFile]
 
-class EmailVerificationCreate(BaseModel):
+class UserVerificationCreate(BaseModel):
     email: EmailStr
     code: str
     user_id: int 
 
-class EmailVerificationCheck(BaseModel):
+class UserVerificationCheck(BaseModel):
     email: EmailStr
     code: str
     new_password: str

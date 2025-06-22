@@ -32,7 +32,8 @@
     z-index: -1; /* Убедитесь, что псевдоэлемент находится ниже текста */
 }
 
-.header h1, .header h2 {
+.header h1,
+.header h2 {
     position: relative;
     z-index: 1;
 
@@ -146,28 +147,31 @@
     border-radius: 32.5px;
     border-color: #0C969C;
     width: 250px;
-    height: 55px;
+    height: 45px;
     font-size: 18px;
     
     font-family: 'Montserrat Alternates', sans-serif;
     z-index: 1;
-    outline: none;
 }
 
 .btn-title.two {
     background-color: transparent;
-    color: #0C969C;
+    color: #ffffff;
     border-radius: 32.5px;
-    border: 3px solid #0C969C; /* Добавляем границу */
-    width: 250px;
+    border: 3px solid #0C969C;
+    width: 200px;
     height: 55px;
     font-size: 18px;
-    font-weight: bold; /* Жирный текст */
-    
+    font-weight: bold;
+    text-align: center;
     font-family: 'Montserrat Alternates', sans-serif;
-    z-index: 1;
-    outline: none;
+    cursor: pointer; /* Указываем, что это интерактивный элемент */
+    display: inline-block; /* Чтобы ширина и высота работали корректно */
+    line-height: 40px; /* Выравниваем текст вертикально */
+    box-sizing: border-box; /* Включаем границы в общую ширину и высоту */
+    transition: background-color 0.3s, color 0.3s; /* Добавим плавность изменений */
 }
+
 /* Убираем синий фон и границу при фокусе */
 .btn-title:focus {
     outline: none !important; /* Убираем стандартную обводку */
@@ -325,15 +329,60 @@
     /* Frame 18 */
     position: fixed;
     width: 424px;
-    height: 636px;
+    height: 650px;
 
     border-radius: 15px;
     box-shadow: 6px 1px 13px 0px rgba(0, 0, 0, 0.25);
     background: rgb(44, 161, 165);
 }
+
+/* Стили для карусели */
+.custom-carousel-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.custom-carousel {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.carousel-item {
+    text-align: center;
+    padding: 20px;
+}
+
+.carousel-image {
+    width: auto;
+    max-height: 300px;
+    margin: 0 auto;
+}
+
+.carousel-caption {
+    position: static;
+    color: #ffffff;
+    padding: 15px;
+    background: rgba(10, 112, 117, 0.7);
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.carousel-caption h5 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.carousel-caption p {
+    font-size: 1rem;
+}
+
 /* --------------Пункты переработки----------------------------------- */
 
-.maps-header h1{
+.maps-header h1 {
     text-align: right;
     color: #ffffff;
     background-color: #087174;
@@ -346,6 +395,68 @@
     font-family: 'Montserrat Alternates', sans-serif;
 }
 
+/* Контейнер карты */
+.map-container {
+    margin-top: 30px;
+    position: relative;
+    width: 100%;
+    height: 700px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Блок с метками */
+.maps-info-metkas {
+    background-color: #087174;
+    border-radius: 20px;
+    margin-top: 30px;
+    padding: 25px;
+}
+
+/* Контейнер для меток */
+.metkas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Отдельная метка */
+.metka {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.metka:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px);
+}
+
+/* Цветной кружок метки */
+.metka-color {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Текст метки */
+.metka p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    font-family: 'Montserrat Alternates', sans-serif;
+}
 
 
 /* --------------Этапы----------------------------------- */
@@ -404,6 +515,187 @@
     border-radius: 36px;
 }
 
-.stage_1_items{
+.btn-title.main {
+    background-color: #0A7075;
+    color: #ffffff;
+    border-radius: 32.5px;
+    border: none;
+    width: 200px;
+    height: 55px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Montserrat Alternates', sans-serif;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 40px;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 16px rgba(10,112,117,0.10);
+}
 
+.btn-title.main:hover,
+.btn-title.main:focus {
+    background-color: #13AAB1;
+    color: #fff;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 24px rgba(10,112,117,0.18);
+    outline: none;
+}
+
+/* --------------Адаптация----------------------------------- */
+@media (max-width: 1670px) {
+  .header h1,
+  .header h2 {
+    font-size: 7rem;
+  }
+  .btn-title,
+  .btn-title.main {
+    max-width: 2400px;
+    font-size: 16px;
+  }
+  .line-container-first,
+  .line-container-second {
+    flex-direction: column;
+    text-align: center;
+  }
+  .line-container-first::after,
+  .line-container-second::before {
+    display: none;
+  }
+  .btn-title.two {
+    width: 180px;
+    height: 45px;
+    font-size: 16px;
+    padding: 0;
+  }
+  /*Заголовки подглав*/
+  .maps-header h1,
+  .project-header h1,
+  .actuality-header h1,
+  .stages-header h1 {
+    font-size: 30px;
+}
+
+@media (max-width: 1140px) {
+    .line-container-first h1,
+    .line-container-second h2 {
+    font-size: 90px;
+  }
+  .project-header h1,
+  .actuality-header h1,
+  .maps-header h1,
+  .stages-header h1 {
+    font-size: 25px;
+  }
+  .header::before {
+    display: none;
+  }
+}
+
+@media (max-width: 960px) {
+  .header h1,
+  .header h2 {
+    font-size: 4rem;
+    margin-right: 0;
+  }
+  .header {
+    margin: 0;
+  }
+  .btn-title{
+
+  }
+  .btn-title.main {
+    width: 180px;
+    height: 35px;
+    font-size: 14px;
+    padding: 0;
+  }
+  .btn-title.two {
+    
+  }
+  .line-container-first,
+  .line-container-second {
+    flex-direction: column;
+    text-align: center;
+  }
+  .line-container-first::after,
+  .line-container-second::before {
+    display: none;
+  }
+  .button-group {
+    flex-direction: column;
+    align-items: center;
+  }
+    .stages-items {
+    flex-direction: column !important;
+    align-items: center;
+  }
+
+  .stage_1 {
+    width: 100%;
+    max-width: 500px;
+    flex-direction: column;
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+
+  .stage_1_text {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .stage_1_text h2 {
+    font-size: 5rem; /* уменьшаем размер для мобильного */
+  }
+
+  .stage_1_items {
+    text-align: center;
+  }
+}
+}
+
+@media (max-width: 600px) {
+    .header h1,
+    .header h2 {
+    font-size: 3rem;
+    margin-right: 0;
+  }
+  .map-container,
+  .ymaps-2-1-79-map,
+  .sc-FEMpB.jhFgnq {
+    height: 420px !important;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .header h1,
+  .header h2 {
+    font-size: 3rem;
+  }
+  .btn-title,
+  .btn-title.main {
+    width: 150px;
+    height: 30px;
+    font-size: 12px;
+  }
+  .line-container-first,
+  .line-container-second {
+    flex-direction: column;
+    text-align: center;
+  }
+  .line-container-first::after,
+  .line-container-second::before {
+    display: none;
+  }
+  .btn-title.two {
+    width: 130px;
+    height: 35px;
+    font-size: 12px;
+  }
+  .button-group {
+    flex-direction: column;
+    align-items: center;
+  }
 }

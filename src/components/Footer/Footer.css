@@ -6,6 +6,10 @@
     flex-direction: column;
 }
 
+.footer-container{
+    max-width: 1260px;
+}
+
 .logo-f{
     width: 150px;
 }
@@ -22,6 +26,12 @@
 .footer-links {
     display: inline-block;
     list-style: none;
+}
+
+.footer-links.one {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
 }
 
 .footer-links li {
@@ -75,4 +85,89 @@
 .social-links a:hover {
     text-decoration: underline;
     color: #38d39f;
+}
+
+/* Адаптация */
+
+@media (max-width: 1064px) {
+  .footer-container {
+    text-align: center;
+  }
+
+  /* Колонка с меню */
+  .footer-links,
+  .footer-links.one {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    margin-bottom: 20px;
+  }
+  .footer-links li {
+    margin-bottom: 8px;
+  }
+
+  /* Колонка с контактами и соцсетями тоже можно подправить */
+  .footer .col-md-4,
+  .footer .col-md-2 {
+    margin-bottom: 20px;
+  }
+}
+
+
+
+@media (max-width: 1014px) {
+  .navbar-custom {
+    flex-direction: row;
+    padding: 10px 15px;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .footer h4, .footer h5 {
+    font-size: 16px;
+  }
+
+  .logo-f {
+    width: 120px;
+  }
+}
+
+/* Мобильные */
+@media (max-width: 480px) {
+  .navbar-custom {
+    padding: 10px;
+  }
+
+  .menu .nav-link {
+    font-size: 16px;
+  }
+
+  .footer h4, .footer h5 {
+    font-size: 14px;
+  }
+
+  .logo-f {
+    width: 100px;
+  }
+
+  .bottom-footer h6 {
+    font-size: 12px;
+  }
 }

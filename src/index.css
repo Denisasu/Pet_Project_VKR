@@ -1,4 +1,4 @@
-@import "leaflet/dist/leaflet.css";
+@import "leaflet/dist/leaflet.css"; /*Что это за импорт ?*/
 
 #root {
   display: flex;
@@ -27,7 +27,7 @@ body {
 body {
   font-family: 'Montserrat Alternates', sans-serif;
   background-color: #3EB8BD;
-  color: #000000; /* Изменено на чёрный для лучшей читабельности */
+  color: #ffffff; /* Изменено на чёрный для лучшей читабельности */
   overflow: auto;
   display: flex;
   justify-content: center;

@@ -15,7 +15,7 @@ function Register() {
   const [isCodeSent, setIsCodeSent] = useState(false);
   const [isCodeConfirmed, setIsCodeConfirmed] = useState(false);
   const [focused, setFocused] = useState({});
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Для перехода на другую страницу
 
   const handleFocus = (field) => {
     setFocused((prevState) => ({ ...prevState, [field]: true }));
@@ -32,15 +32,34 @@ function Register() {
       alert('Введите email');
       return;
     }
+  
     try {
-      const response = await axios.post(`http://localhost:8000/send-verification-code/`, { email });
+      const response = await axios.post(`http://localhost:8000/register/`, { 
+        email,
+        first_name: firstName,  // Добавьте имя
+        password,                // Добавьте пароль
+        photo_url: ""
+      });
       if (response.status === 200) {
         setIsCodeSent(true);
         alert('Код отправлен на ваш email');
       }
+
     } catch (error) {
       console.error('Ошибка отправки кода:', error);
-      alert('Не удалось отправить код');
+      if (error.response) {
+        // Сервер вернул ошибку
+        console.error('Ответ от сервера:', error.response.data);
+        alert(`Ошибка отправки: ${error.response.data.detail || error.message}`);
+      } else if (error.request) {
+        // Запрос был сделан, но ответа не было
+        console.error('Запрос был отправлен, но не получен ответ:', error.request);
+        alert('Ошибка: не удалось получить ответ от сервера');
+      } else {
+        // Что-то пошло не так при настройке запроса
+        console.error('Ошибка настройки запроса:', error.message);
+        alert('Ошибка при настройке запроса');
+      }
     }
   };
 
@@ -49,8 +68,24 @@ function Register() {
       alert('Введите код подтверждения');
       return;
     }
-    setIsCodeConfirmed(true);
-    alert('Код подтвержден!');
+
+    try {
+      const response = await axios.post('http://localhost:8000/verify-code/', {
+        email,
+        code: confirmationCode,
+      });
+
+      if (response.status === 200) {
+        setIsCodeConfirmed(true);
+        alert('Код подтверждения действителен!');
+        
+        // После подтверждения кода переходим на страницу login
+        navigate('/login');  // Переход на страницу логина
+      }
+    } catch (error) {
+      console.error('Ошибка подтверждения кода:', error);
+      alert('Ошибка: неверный код подтверждения');
+    }
   };
 
   const handleRegister = async () => {
@@ -58,16 +93,19 @@ function Register() {
       alert('Пожалуйста, заполните все поля корректно');
       return;
     }
+
     try {
-      const response = await axios.post(`http://localhost:8000/register/`, {
+      const response = await axios.post('http://localhost:8000/register/', {
         first_name: firstName,
         email,
         password,
+        photo_url: "" 
       });
+
       if (response.status === 200) {
         localStorage.setItem('user', JSON.stringify({ firstName, email }));
         alert('Регистрация завершена!');
-        navigate('/login');
+        navigate('/login');  // Переход на страницу логина после регистрации
       }
     } catch (error) {
       console.error('Ошибка регистрации:', error);
@@ -191,15 +229,6 @@ function Register() {
                 >
                   Подтвердить
                 </button>
-                {isCodeConfirmed && (
-                  <button
-                    type="button"
-                    className={styles.btn}
-                    onClick={handleRegister}
-                  >
-                    Зарегистрироваться
-                  </button>
-                )}
               </form>
             )}
           </div>

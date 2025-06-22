@@ -10,10 +10,8 @@ import "./PersonalAcc.css";
 function PersonalAcc() {
   const { user, setUser, logout } = useAuth();
   const [applications, setApplications] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     first_name: "",
-    city: "",
     email: "",
     photo_url: null,
   });
@@ -38,11 +36,10 @@ function PersonalAcc() {
       console.log("Пользователь загружен:", user);
       setFormData({
         first_name: user.first_name || "",
-        city: user.city || "",
         email: user.email || "",
         photo_url: null,
       });
-      fetchApplications(user.email);
+      fetchApplications(user.id);
     }
   }, [navigate, user]);
 
@@ -61,17 +58,17 @@ function PersonalAcc() {
   };
 
 
-  const fetchApplications = async (email) => {
+  const fetchApplications = async (userId) => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/applications/email/${email}`
+        `http://localhost:8000/applications/user/${userId}` // Теперь используем user_id
       );
       setApplications(response.data);
     } catch (error) {
       console.error("Ошибка при получении заявок:", error);
     }
   };
-
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -90,7 +87,6 @@ function PersonalAcc() {
 
     const formDataToUpdate = new FormData();
     formDataToUpdate.append("first_name", formData.first_name);
-    formDataToUpdate.append("city", formData.city);
     formDataToUpdate.append("email", formData.email);
 
     if (formData.photo_url) {
@@ -112,7 +108,6 @@ function PersonalAcc() {
       setIsEditing(false);
       setFormData({
         first_name: response.data.first_name,
-        city: response.data.city,
         email: response.data.email,
         photo_url: null,
       });
@@ -135,14 +130,12 @@ function PersonalAcc() {
   };
 
   const handleShowModal = () => {
-    // Сбрасываем данные формы при открытии окна
-    setEmail('');
-    setName('');
+    setEmail(user.email || '');  // Устанавливаем email пользователя
+    setName(user.first_name || '');
     setDescription('');
-    
-    setShowModal(true); // Показываем модальное окно
+    setShowModal(true);
   };
-
+  
   const handleCloseModal = () => {
     // Очищаем форму при закрытии окна
     setEmail('');
@@ -154,8 +147,20 @@ function PersonalAcc() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+  
+    if (!user || !user.id) {
+      console.error("Пользователь не авторизован или не найден user.id");
+      return;  // Если данных нет, прекращаем выполнение
+    }
+
+    // Проверка, что все поля заполнены
+    if (!name || !description || !email) {
+      console.error("Все поля формы должны быть заполнены.");
+      return;
+    }
+
     
-    const feedbackData = { email, name, message: description };
+    const feedbackData = {  user_id: user.id, message: description }; // Используем user_id
 
     setIsSubmitting(true);
 
@@ -178,79 +183,35 @@ function PersonalAcc() {
     }
   };
 
+  const [showEditModal, setShowEditModal] = useState(false);
+
   return (
     <>
       <div className="personal-acc-container">
-        <div className="right-column">
+        <div className="profile-column">
           <div className="user-info-wrapper">
             <img
               src={user.photo_url || avatars}
               alt="User"
               className="user-photo"
             />
-            {!isEditing ? (
-              <div className="user-info">
-                <h3>{user.first_name}</h3>
-                <p>Город: {user.city}</p>
-                <p>Email: {user.email}</p>
-              </div>
-            ) : (
-              <div className="edit-form">
-                <input
-                  type="text"
-                  name="first_name"
-                  value={formData.first_name}
-                  onChange={handleInputChange}
-                  placeholder="Имя"
-                />
-                <input
-                  type="text"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleInputChange}
-                  placeholder="Город"
-                />
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="Email"
-                />
-                <input
-                  type="file"
-                  name="photo"
-                  onChange={handleFileChange}
-                  accept="image/*"
-                />
-              </div>
-            )}
+            <div className="user-info">
+              <h3>{user.first_name}</h3>
+              <p>Email: {user.email}</p>
+            </div>
           </div>
           <div className="user-actions">
-            {!isEditing ? (
-              <button
-                onClick={() => setIsEditing(true)}
-                className="action-btn edit-btn"
-              >
-                Редактировать данные
-              </button>
-            ) : (
-              <>
-                <button onClick={handleSave} className="action-btn save-btn">
-                  Сохранить
-                </button>
-                <button
-                  onClick={() => setIsEditing(false)}
-                  className="action-btn cancel-btn"
-                >
-                  Отмена
-                </button>
-              </>
-            )}
+            <button
+              onClick={() => setShowEditModal(true)}
+              className="action-btn edit-btn"
+            >
+              Редактировать данные
+            </button>
             <button onClick={handleLogout} className="action-btn logout-btn">
               Выйти из аккаунта
             </button>
           </div>
+          
           <div className="apply-button-container">
             <button onClick={handleApply} className="apply-btn">
               Подать заявку
@@ -258,34 +219,105 @@ function PersonalAcc() {
           </div>
         </div>
 
-        <div className="left-column">
+        <Modal show={showEditModal} onHide={() => setShowEditModal(false)} centered className="custom-modal edit-profile-modal">
+          <Modal.Body>
+            <button className="close-btn" onClick={() => setShowEditModal(false)}>
+              &times;
+            </button>
+            <div className="modal-content-wrapper">
+              <div className="modal-form-wrapper">
+                <h2 className="modal-form-title">Редактировать профиль</h2>
+                <form>
+                  <div className="user-photo-wrapper">
+                    <img
+                      src={
+                        formData.photo_url
+                          ? URL.createObjectURL(formData.photo_url)
+                          : user.photo_url || avatars
+                      }
+                      alt="User"
+                      className="user-photo"
+                    />
+                    <label className="photo-upload-label">
+                      <input
+                        type="file"
+                        name="photo"
+                        onChange={handleFileChange}
+                        accept="image/*"
+                        style={{ display: "none" }}
+                      />
+                      <span className="photo-upload-btn">Изменить фото</span>
+                    </label>
+                  </div>
+                  <input
+                    type="text"
+                    name="first_name"
+                    value={formData.first_name}
+                    onChange={handleInputChange}
+                    placeholder="Имя"
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="Email"
+                  />
+                  <div className="buttonsWrapper">
+                    <button
+                      type="button"
+                      className="btn save-btn"
+                      onClick={async () => {
+                        await handleSave();
+                        setShowEditModal(false);
+                      }}
+                    >
+                      Сохранить
+                    </button>
+                    <button
+                      type="button"
+                      className="btn cancel-btn"
+                      onClick={() => setShowEditModal(false)}
+                    >
+                      Отмена
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </Modal.Body>
+        </Modal>
+
+        <div className="applications-column">
           <h2>Мои заявки</h2>
-          <table className="applications-table">
-            <thead>
-              <tr>
-                <th>Номер заявки</th>
-                <th>Дата создания</th>
-                <th>Содержание</th>
-                <th>Статус</th>
-              </tr>
-            </thead>
-            <tbody>
-              {applications.length > 0 ? (
-                applications.map((app) => (
-                  <tr key={app.id}>
-                    <td>{app.id}</td>
-                    <td>{new Date(app.created_at).toLocaleDateString()}</td>
-                    <td>{app.description}</td>
-                    <td>{app.status}</td>
-                  </tr>
-                ))
-              ) : (
+          <div className="applications-table-wrapper">
+            <table className="applications-table">
+              <thead>
                 <tr>
-                  <td colSpan="4">У вас нет заявок.</td>
+                  <th>Номер заявки</th>
+                  <th>Дата создания</th>
+                  <th>Содержание</th>
+                  <th>Статус</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {applications.length > 0 ? (
+                  applications.map((app) => (
+                    <tr key={app.id}>
+                      <td>{app.id}</td>
+                      <td>{new Date(app.created_at).toLocaleDateString()}</td>
+                      <td>{app.description}</td>
+                      <td>{app.status.name}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="4">У вас нет заявок.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>              
+          </div>
         </div>
       </div>
 
@@ -297,7 +329,7 @@ function PersonalAcc() {
       </div>
 
       {/* Модальное окно с формой обратной связи */}
-      <Modal show={showModal} onHide={handleCloseModal} centered className="custom-modal">
+      <Modal show={showModal} onHide={handleCloseModal} centered className="custom-modal feedback-modal">
         <Modal.Body>
           {/* Кнопка закрытия */}
           <button className="close-btn" onClick={handleCloseModal}>
@@ -355,7 +387,7 @@ function PersonalAcc() {
                   <div className="inputWrapper">
                     <h5>Ваш вопрос</h5>
                     <textarea
-                      className="input"
+                      className="input "
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                       onFocus={() => handleFocus("question")}

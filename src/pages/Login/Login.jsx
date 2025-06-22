@@ -33,38 +33,56 @@ function Login() {
   };
 
   const handleLogin = async () => {
-    if (!email || !password) {
-      alert("Пожалуйста, заполните все поля.");
-      return;
-    }
-    try {
-      const response = await axios.post(`http://localhost:8000/login/`, { email, password });
-      if (response.status === 200 && response.data.message === 'Вход успешен') {
-        const userData = { 
-          id: response.data.id,
-          email, 
-          first_name: response.data.first_name || 'Не указано', 
-          city: response.data.city || 'Не указано',
-          photo_url: response.data.photo_url || ''
-        };
-        
-        // Используем login из контекста для сохранения пользователя
-        login(userData); // Это заменит сохранение в localStorage
+  if (!email || !password) {
+    alert("Пожалуйста, заполните все поля.");
+    return;
+  }
 
-        // Если нужно, можно также сохранить в localStorage для "Запомнить меня"
-        if (rememberMe) {
-          localStorage.setItem('user', JSON.stringify(userData)); 
-        }
+  try {
+    const params = new URLSearchParams();
+    params.append('username', email);
+    params.append('password', password);
 
-        navigate('/personalacc'); // Перенаправляем на личный кабинет
-      } else {
-        alert('Неверный email или пароль!');
+    const response = await axios.post('http://localhost:8000/token', params, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
       }
-    } catch (error) {
-      console.error('Ошибка при входе:', error.response ? error.response.data : error.message);
+    });
+
+    if (response.status === 200 && response.data.access_token) {
+      const { access_token, user_id, first_name, photo_url } = response.data;
+
+      const userData = {
+        id: user_id,
+        email,
+        first_name: first_name || 'Не указано',
+        photo_url: photo_url || '',
+      };
+
+      // Храним только access token, так как refresh не реализован
+      if (rememberMe) {
+        localStorage.setItem('accessToken', access_token);
+        localStorage.setItem("user", JSON.stringify(userData));
+      } else {
+        sessionStorage.setItem('accessToken', access_token);
+        sessionStorage.setItem("user", JSON.stringify(userData));
+      }
+
+      
+
+      login(userData, rememberMe);
+      navigate('/personalacc');
+    }
+  } catch (error) {
+    console.error('Ошибка при входе:', error);
+    if (error.response && error.response.status === 401) {
+      alert('Неверный email или пароль!');
+    } else {
       alert('Произошла ошибка при подключении к серверу.');
     }
-  };
+  }
+};
+
 
   const handleForgotPassword = () => {
     navigate('/forgotpassword');

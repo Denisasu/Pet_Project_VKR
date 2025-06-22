@@ -32,13 +32,9 @@
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  margin-top: 70px;
-}
-
-.img img {
-  width: 700px;
-  z-index: 2;
-  margin-top: 170px;
+  z-index: 3;
+  margin-top: 0;
+  margin-left: -5.5rem;  /* Сдвиг влево */
 }
 
 .zayvkaContent h2 {
@@ -54,7 +50,7 @@
   grid-template-columns: 7% 93%;
   margin: 25px 0;
   padding: 5px 0;
-  border-bottom: 2px solid #d9d9d9;
+  border-bottom: 2px solid #ffffff;
 }
 
 .inputDiv.one {
@@ -62,10 +58,12 @@
 }
 
 i {
-  color: #c9c9c9;
+  color: #e6e5e5;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 20px;
+  margin-top: 10px;
 }
 
 i {
@@ -82,7 +80,7 @@ i {
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  color: #999;
+  color: #fff;
   font-size: 18px;
   transition: .3s;
 }
@@ -94,7 +92,7 @@ i {
   bottom: -2px;
   width: 0%;
   height: 2px;
-  background-color: #38d39f;
+  background-color: #0A7075;
   transition: .4s;
 }
 
@@ -114,11 +112,11 @@ i {
 .inputDiv.focus .inputWrapper h5 {
   top: -5px;
   font-size: 15px;
-  color: #38d39f;
+  color: #0A7075;
 }
 
-.inputDiv.focus i {
-  color: #38d39f;
+.inputDiv.focus .i i {
+  color: #0A7075;
 }
 
 .inputDiv .inputWrapper input,
@@ -133,7 +131,7 @@ i {
   background: none;
   padding: 0.5rem 0.7rem;
   font-size: 1.2rem;
-  color: #555;
+  color: #0A7075;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -143,30 +141,80 @@ i {
 
 .locationWrapper {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 25px;
+  width: 100%;
 }
 
-.locationWrapper input {
-  width: 48%;
+.geoInput {
+  width: 35%; /* фиксированная ширина */
   height: 40px;
   padding: 0 0.7rem;
   font-size: 1rem;
-  color: #555;
-  background: none; /* Убираем фон */
-  border: none; /* Убираем стандартную границу */
-  border-bottom: 2px solid #d9d9d9; /* Линия снизу */
+  color: #0A7075;
+  background: none;
+  border: none;
+  border-bottom: 2px solid #0A7075;
+  margin-bottom: 10px;
+  margin-right: 70px; /* добавляем отступ справа */
 }
 
-.locationWrapper input:focus {
-  outline: none; /* Убираем обводку при фокусе */
-  border-bottom: 2px solid #38d39f; /* Линия снизу при фокусе */
+.btns.geoButton {
+  height: 40px;
+  padding: 0 15px;
+  white-space: nowrap;
 }
+
+
+.geoInput:focus {
+  outline: none;
+  border-bottom: 2px solid #0A7075;
+}
+
+
 
 textarea {
   resize: none;
   height: 150px;
 }
+
+/*Копка гео*/
+.btns {
+  display: inline-flex; /* Используем inline-flex для выравнивания текста по центру */
+  justify-content: center; /* Центрируем текст по горизонтали */
+  align-items: center; /* Центрируем текст по вертикали */
+  padding: 10px 15px;
+  background-color: #0A7075; /* Цвет кнопки */
+  border-radius: 30px; /* Овальная форма */
+  color: white;
+  outline: #0A7075 !important;
+  font-size: 0.8rem !important;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s;
+  align-self: flex-start; /* чтобы выровнять по левому краю */
+  margin-top: 10px;
+  font-family: 'Montserrat Alternates', sans-serif;
+  white-space: nowrap; /* Предотвращает перенос текста на несколько строк */
+}
+/* Убираем синию обводку у кнопки "Выбрать на карте" */
+.geoButton:focus, .geoButton:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+/* Специфичные стили для кнопки геопозиции */
+.geoButton {
+  width: auto !important;
+  padding: 10px 15px !important;
+  margin: 0 !important;
+  height: 45px !important;
+  text-transform: none !important;
+  background: #0A7075 !important;
+  outline: #0A7075 !important;
+}
+
 
 /* Кнопка отправки */
 .buttonsWrapper {
@@ -182,11 +230,11 @@ textarea {
   border-radius: 25px;
   outline: none;
   border: none;
-  background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+  background-image: linear-gradient(to right, #0A7075, #0f8086, #18abb3);
   background-size: 200%;
   font-size: 1.2rem;
   color: #fff;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat Alternates', sans-serif;
   text-transform: uppercase;
   margin: 1rem 0;
   cursor: pointer;
@@ -209,3 +257,136 @@ textarea {
   border-radius: 50%;
 }
 
+/* 1. Широкие экраны — оставляем как есть */
+
+/* 2. Средние экраны - ниже 1249px */
+@media (max-width: 1249px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    gap: 2rem;
+    height: auto;
+  }
+
+  /* Скрываем большую картинку */
+  .img {
+    display: none;
+  }
+
+  /* Центрируем форму и убираем сдвиги */
+  .zayvkaContent {
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+    padding: 0 10px;
+    
+  }
+
+  /* Уменьшаем заголовок */
+  .zayvkaContent h2 {
+    font-size: 2.2rem;
+  }
+
+  /* Форма по ширине */
+  form {
+    width: 100%;
+    max-width: 450px;
+  }
+}
+
+/* 3. Малые экраны - ниже 600px */
+@media (max-width: 600px) {
+  /* Уменьшаем размеры заголовков */
+  .zayvkaContent h2 {
+    font-size: 1.8rem;
+  }
+
+  /* Уменьшаем размеры шрифта и padding в input и textarea */
+  .inputWrapper h5 {
+    font-size: 16px;
+  }
+
+  .inputDiv .inputWrapper input,
+  .inputDiv .inputWrapper textarea {
+    font-size: 1rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  /* Кнопки */
+  .btn,
+  .btns.geoButton {
+    font-size: 1rem;
+    height: 45px;
+  }
+
+  /* Прячем волну */
+  .wave {
+    display: none;
+  }
+}
+
+/* 4. Очень маленькие экраны - ниже 475px */
+@media (max-width: 475px) {
+  .container {
+    padding: 0 1rem;
+    gap: 1.5rem;
+  }
+
+  /* Полностью прячем изображения и декоративные волны */
+  .img img,
+  .wave {
+    display: none;
+  }
+
+  .zayvkaContent {
+    margin-left: 0;
+    justify-content: center;
+    padding: 0 0.5rem;
+    width: 100%;
+  }
+
+  /* Максимальная ширина формы */
+  form {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  .zayvkaContent h2 {
+    font-size: 1.6rem;
+    margin: 10px 0 15px;
+  }
+
+  /* Уменьшаем аватар */
+  .avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  /* Инпуты и textarea */
+  .inputDiv {
+    margin: 15px 0;
+    grid-template-columns: 12% 88%;
+  }
+
+  .inputWrapper h5 {
+    font-size: 14px;
+    left: 8px;
+  }
+
+  .inputDiv .inputWrapper input,
+  .inputDiv .inputWrapper textarea {
+    font-size: 1rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  /* Кнопка отправки и выбора гео — ширина 100% */
+  .btn,
+  .btns.geoButton {
+    font-size: 1rem;
+    height: 42px;
+    width: 100%;
+    margin-top: 10px;
+  }
+}
